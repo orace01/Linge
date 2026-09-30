@@ -29,7 +29,7 @@ const socials = ['Instagram', 'Pinterest', 'TikTok']
 
 export function Footer() {
   return (
-    <footer className="bg-ink text-surface">
+    <footer className="tex-velvet-deep text-surface">
       <div className="mx-auto max-w-[1400px] px-5 py-14 lg:px-10">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {columns.map((col) => (

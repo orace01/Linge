@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
-import { getProductBySlug } from '../data/catalog'
-import { EmptyFrame } from './EmptyFrame'
+import { colorwayOf, getProductBySlug } from '../data/catalog'
+import { FabricMedia } from './FabricMedia'
 import { CloseIcon } from './icons'
 
 export function MiniCartDrawer() {
@@ -35,7 +35,7 @@ export function MiniCartDrawer() {
                 if (!product) return null
                 return (
                   <li key={`${item.slug}-${item.color}-${item.size}`} className="flex gap-4">
-                    <EmptyFrame ratio="3 / 4" className="w-20 shrink-0" label={null} />
+                    <FabricMedia colorway={colorwayOf(item.color)} motion="still" className="aspect-[3/4] w-20 shrink-0 rounded-xl" />
                     <div className="flex flex-1 flex-col justify-between">
                       <div className="flex items-start justify-between gap-2">
                         <div>

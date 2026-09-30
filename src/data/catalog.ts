@@ -1,16 +1,29 @@
 export type Category = {
   slug: string
   name: string
-  frameRatio: string
 }
 
 export const categories: Category[] = [
-  { slug: 'soutiens-gorge', name: 'Soutiens-gorge', frameRatio: '3 / 4' },
-  { slug: 'culottes', name: 'Culottes', frameRatio: '1 / 1' },
-  { slug: 'ensembles', name: 'Ensembles', frameRatio: '4 / 5' },
-  { slug: 'bodys', name: 'Bodys', frameRatio: '3 / 4' },
-  { slug: 'lingerie-de-nuit', name: 'Lingerie de nuit', frameRatio: '4 / 5' },
+  { slug: 'soutiens-gorge', name: 'Soutiens-gorge' },
+  { slug: 'culottes', name: 'Culottes' },
+  { slug: 'ensembles', name: 'Ensembles' },
+  { slug: 'bodys', name: 'Bodys' },
+  { slug: 'lingerie-de-nuit', name: 'Lingerie de nuit' },
 ]
+
+/** Silk swatch (still + cinemagraph loop) shown for each colour until product photos exist. */
+export type Colorway = 'rose' | 'bordeaux' | 'prune' | 'ivoire'
+
+const colorways: Record<string, Colorway> = {
+  'Rose poudré': 'rose',
+  Bordeaux: 'bordeaux',
+  Prune: 'prune',
+  Ivoire: 'ivoire',
+}
+
+export function colorwayOf(color: string): Colorway {
+  return colorways[color] ?? 'rose'
+}
 
 export type Product = {
   id: string

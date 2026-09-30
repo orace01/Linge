@@ -99,3 +99,36 @@ export function MinusIcon({ className, size = base }: IconProps) {
     </svg>
   )
 }
+
+export function ChevronLeftIcon({ className, size = base, stroke = 1.6 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+      <polyline points="15 5 8 12 15 19" stroke="currentColor" strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+export function ChevronRightIcon({ className, size = base, stroke = 1.6 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+      <polyline points="9 5 16 12 9 19" stroke="currentColor" strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+export function PauseIcon({ className, size = base }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <rect x="7" y="5.5" width="3.2" height="13" rx="1" />
+      <rect x="13.8" y="5.5" width="3.2" height="13" rx="1" />
+    </svg>
+  )
+}
+
+export function PlayIcon({ className, size = base }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M8 5.8v12.4a1 1 0 0 0 1.52.85l9.9-6.2a1 1 0 0 0 0-1.7l-9.9-6.2A1 1 0 0 0 8 5.8Z" />
+    </svg>
+  )
+}

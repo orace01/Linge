@@ -38,19 +38,19 @@ export function Header() {
             </button>
             <Link
               to="/"
-              className="font-logo text-[27px] font-bold uppercase leading-none tracking-[0.02em] text-wine lg:-translate-y-[calc(2.5*var(--s))] lg:text-[length:calc(41*var(--s))]"
+              className="font-logo text-[27px] font-bold uppercase leading-none tracking-[0.02em] text-wine lg:-translate-y-[calc(2.2*var(--s))] lg:text-[length:calc(36*var(--s))]"
             >
               {BRAND}
             </Link>
           </div>
 
           {/* center: nav */}
-          <nav aria-label="Navigation principale" className="hidden items-center gap-[calc(31*var(--s))] lg:flex">
+          <nav aria-label="Navigation principale" className="hidden items-center gap-[calc(29*var(--s))] lg:flex">
             {navLinks.map((link) => (
               <NavLink
                 key={link.label}
                 to={link.to}
-                className="font-ui text-[length:calc(15.5*var(--s))] font-medium uppercase leading-none tracking-[0.02em] text-ink transition hover:text-wine"
+                className="font-ui text-[length:calc(14.5*var(--s))] font-medium uppercase leading-none tracking-[0.02em] text-ink transition hover:text-wine"
               >
                 {link.label}
               </NavLink>
@@ -58,12 +58,12 @@ export function Header() {
           </nav>
 
           {/* right: search + bag */}
-          <div className="flex items-center justify-end gap-5 text-ink lg:gap-[calc(24*var(--s))]">
+          <div className="flex items-center justify-end gap-5 text-ink lg:gap-[calc(22*var(--s))]">
             <button aria-label="Rechercher" onClick={() => setSearchOpen(true)} className="transition hover:text-wine">
-              <SearchIcon size={24} stroke={2} className="lg:h-[calc(27*var(--s))] lg:w-[calc(27*var(--s))]" />
+              <SearchIcon size={24} stroke={2} className="lg:h-[calc(24*var(--s))] lg:w-[calc(24*var(--s))]" />
             </button>
             <button aria-label="Voir le panier" onClick={openMiniCart} className="relative transition hover:text-wine">
-              <BagIcon size={24} stroke={2} className="lg:h-[calc(27*var(--s))] lg:w-[calc(27*var(--s))]" />
+              <BagIcon size={24} stroke={2} className="lg:h-[calc(24*var(--s))] lg:w-[calc(24*var(--s))]" />
               {totalItems > 0 && (
                 <span className="absolute -right-2 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-wine px-1 font-ui text-[9px] text-surface">
                   {totalItems}

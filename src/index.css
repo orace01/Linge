@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Fraunces", Georgia, serif;
+  --font-display: "Bodoni Moda", "Bodoni 72", Didot, Georgia, serif;
+  --font-script: "Monsieur La Doulaise", cursive;
   --font-logo: "Playfair Display", Georgia, serif;
   --font-title: "Noto Serif", Georgia, serif;
   --font-ui: "Roboto", ui-sans-serif, system-ui, sans-serif;
@@ -47,7 +48,7 @@
       calc(min(100vw, 1920px) / 1344)
     );
     --strip-h: calc(24 * var(--s));
-    --header-h: calc(64 * var(--s));
+    --header-h: calc(54 * var(--s));
   }
 }
 
@@ -60,6 +61,138 @@ body {
   background-color: var(--color-page);
   color: var(--color-ink);
   font-family: var(--font-sans);
+}
+
+/* Didone titles: optical sizes + the face's ligatures (ct, st…) */
+.font-display {
+  font-optical-sizing: auto;
+  font-variant-ligatures: common-ligatures discretionary-ligatures contextual;
+}
+
+/* Fabric backgrounds (rendered textures, with a palette colour while loading) */
+.tex-silk {
+  background: var(--color-surface-soft) url("/textures/silk-blush.webp") center / cover;
+}
+.tex-velvet {
+  background: var(--color-wine-hover) url("/textures/velvet-wine.webp") center / cover;
+}
+/* darker velvet so small light text stays readable on the sheen */
+.tex-velvet-deep {
+  background:
+    linear-gradient(rgb(0 0 0 / 0.42), rgb(0 0 0 / 0.42)),
+    var(--color-wine-hover) url("/textures/velvet-wine.webp") center / cover;
+}
+
+/* Scroll reveal (see Reveal.tsx) */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 1s ease,
+    transform 1.1s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Hero entrance */
+@keyframes lucea-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes lucea-kenburns {
+  from {
+    transform: scale(1.07);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes hero-in-next {
+  from {
+    transform: translateX(100%);
+  }
+}
+@keyframes hero-in-prev {
+  from {
+    transform: translateX(-100%);
+  }
+}
+@keyframes hero-out-next {
+  to {
+    transform: translateX(-100%);
+  }
+}
+@keyframes hero-out-prev {
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes hero-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.hero-rise {
+  animation: lucea-rise 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+.hero-kenburns {
+  animation: lucea-kenburns 8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+/* hero carousel slides (see Hero.tsx) */
+.hero-in-next,
+.hero-in-prev,
+.hero-out-next,
+.hero-out-prev {
+  animation-duration: 1.15s;
+  animation-timing-function: cubic-bezier(0.77, 0, 0.18, 1);
+  animation-fill-mode: both;
+}
+.hero-in-next {
+  animation-name: hero-in-next;
+}
+.hero-in-prev {
+  animation-name: hero-in-prev;
+}
+.hero-out-next {
+  animation-name: hero-out-next;
+}
+.hero-out-prev {
+  animation-name: hero-out-prev;
+}
+.hero-progress {
+  transform-origin: left;
+  animation: hero-progress var(--hero-duration, 6500ms) linear both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .hero-rise,
+  .hero-kenburns,
+  .hero-in-next,
+  .hero-in-prev,
+  .hero-out-next,
+  .hero-out-prev,
+  .hero-progress {
+    animation: none;
+  }
 }
 
 :where(a, button, summary, [tabindex]):focus-visible {

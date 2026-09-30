@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
-import { getProductBySlug, products } from '../data/catalog'
-import { EmptyFrame } from '../components/EmptyFrame'
+import { colorwayOf, getProductBySlug, products } from '../data/catalog'
+import { FabricMedia } from '../components/FabricMedia'
 import { ProductCard } from '../components/ProductCard'
 import { useCart } from '../context/CartContext'
 import { useFavorites } from '../context/FavoritesContext'
@@ -16,6 +16,7 @@ export function Product() {
   const [color, setColor] = useState(product?.colors[0] ?? '')
   const [size, setSize] = useState(product?.sizes[1] ?? product?.sizes[0] ?? '')
   const [added, setAdded] = useState(false)
+  const [galleryHover, setGalleryHover] = useState(false)
 
   if (!product) return <Navigate to="/boutique" replace />
 
@@ -41,10 +42,28 @@ export function Product() {
       <div className="flex flex-col gap-10 lg:flex-row lg:gap-16">
         {/* gallery */}
         <div className="lg:w-[560px] lg:flex-shrink-0">
-          <EmptyFrame ratio="4 / 5" className="w-full" rounded="rounded-3xl" />
+          <div onMouseEnter={() => setGalleryHover(true)} onMouseLeave={() => setGalleryHover(false)}>
+            <FabricMedia
+              key={color}
+              colorway={colorwayOf(color)}
+              active={galleryHover}
+              zoom
+              alt={`${product.name}, coloris ${color}`}
+              className="aspect-[4/5] w-full rounded-3xl"
+            />
+          </div>
           <div className="mt-4 flex gap-4">
-            {[0, 1, 2].map((i) => (
-              <EmptyFrame key={i} ratio="3 / 4" className="w-20" label={null} />
+            {product.colors.map((c) => (
+              <button
+                key={c}
+                onClick={() => setColor(c)}
+                aria-label={`Voir le coloris ${c}`}
+                className={`overflow-hidden rounded-xl ring-offset-2 ring-offset-page transition ${
+                  c === color ? 'ring-2 ring-wine' : 'opacity-80 hover:opacity-100'
+                }`}
+              >
+                <FabricMedia colorway={colorwayOf(c)} motion="still" className="aspect-[3/4] w-20" />
+              </button>
             ))}
           </div>
         </div>
@@ -53,7 +72,7 @@ export function Product() {
         <div className="lg:flex-1">
           <span className="text-xs uppercase tracking-[0.16em] text-wine">{product.category}</span>
           <div className="mt-3 flex items-start justify-between gap-4">
-            <h1 className="font-display text-4xl text-ink sm:text-5xl">{product.name}</h1>
+            <h1 className="font-display text-5xl leading-tight text-ink sm:text-6xl">{product.name}</h1>
             <button
               onClick={() => toggleFavorite(product.slug)}
               aria-label="Ajouter aux favoris"

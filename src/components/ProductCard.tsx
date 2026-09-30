@@ -1,18 +1,33 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import type { Product } from '../data/catalog'
-import { EmptyFrame } from './EmptyFrame'
+import { colorwayOf, type Product } from '../data/catalog'
 import { useFavorites } from '../context/FavoritesContext'
+import { FabricMedia } from './FabricMedia'
 import { HeartIcon } from './icons'
 
 export function ProductCard({ product }: { product: Product }) {
   const { isFavorite, toggleFavorite } = useFavorites()
+  const [hovered, setHovered] = useState(false)
   const fav = isFavorite(product.slug)
   const badge = product.isNew ? 'Nouveau' : product.isBestSeller ? 'Best-seller' : null
 
   return (
-    <Link to={`/produit/${product.slug}`} className="group block w-full">
+    <Link
+      to={`/produit/${product.slug}`}
+      className="group block w-full"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onFocus={() => setHovered(true)}
+      onBlur={() => setHovered(false)}
+    >
       <div className="relative">
-        <EmptyFrame ratio="4 / 5" className="w-full" />
+        <FabricMedia
+          colorway={colorwayOf(product.colors[0])}
+          active={hovered}
+          zoom
+          flip={Number(product.id.slice(1)) % 2 === 0}
+          className="aspect-[4/5] rounded-2xl"
+        />
         {badge && (
           <span className="absolute left-3.5 top-3.5 rounded-full bg-rose-soft px-3 py-1.5 text-[10px] uppercase tracking-wide text-wine">
             {badge}
@@ -31,10 +46,10 @@ export function ProductCard({ product }: { product: Product }) {
           <HeartIcon className="h-4 w-4" filled={fav} />
         </button>
       </div>
-      <div className="mt-3.5 flex items-start justify-between gap-2 text-ink">
+      <div className="mt-4 flex items-start justify-between gap-2 text-ink">
         <div>
-          <p className="font-display text-lg">{product.name}</p>
-          <p className="mt-0.5 text-[11px] uppercase tracking-wide text-ink-muted">
+          <p className="font-display text-xl leading-tight transition group-hover:italic">{product.name}</p>
+          <p className="mt-1 text-[11px] uppercase tracking-wide text-ink-muted">
             {product.category} — {product.price}&nbsp;€
           </p>
         </div>

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
-import { getProductBySlug } from '../data/catalog'
-import { EmptyFrame } from '../components/EmptyFrame'
+import { colorwayOf, getProductBySlug } from '../data/catalog'
+import { FabricMedia } from '../components/FabricMedia'
 
 export function Cart() {
   const { items, removeItem, updateQuantity, totalPrice } = useCart()
@@ -28,7 +28,7 @@ export function Cart() {
               if (!product) return null
               return (
                 <div key={`${item.slug}-${item.color}-${item.size}`} className="mb-7 flex gap-6 border-b border-border pb-7">
-                  <EmptyFrame ratio="3 / 4" className="w-24 shrink-0" label={null} />
+                  <FabricMedia colorway={colorwayOf(item.color)} motion="still" className="aspect-[3/4] w-24 shrink-0 rounded-xl" />
                   <div className="flex flex-1 flex-col justify-between">
                     <div className="flex items-start justify-between gap-3">
                       <div>

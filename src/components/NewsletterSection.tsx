@@ -1,8 +1,10 @@
 export function NewsletterSection() {
   return (
-    <section className="bg-rose-soft px-5 py-16 lg:px-10 lg:py-20">
+    <section className="tex-silk px-5 py-20 lg:px-10 lg:py-28">
       <div className="mx-auto flex max-w-xl flex-col items-center text-center">
-        <h2 className="font-display text-3xl text-ink sm:text-4xl">Restons en contact</h2>
+        <h2 className="font-display text-4xl text-ink sm:text-5xl">
+          Restons <span className="italic">en contact</span>
+        </h2>
         <p className="mt-3 text-sm font-light leading-relaxed text-ink">
           Inscrivez-vous pour recevoir nos nouveautés, nos ventes privées et nos conseils lingerie.
         </p>
