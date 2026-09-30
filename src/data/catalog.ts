@@ -58,6 +58,7 @@ export type Product = {
   /** main visual; without one the card shows a silk swatch of the first colour */
   image?: string
   images?: string[]
+  defaultColor?: string
   source: 'demo' | 'cj'
 }
 
@@ -102,6 +103,7 @@ function fromCj(p: CjCatalogProduct): Product {
     isBestSeller: p.isBestSeller,
     image: images?.[0],
     images,
+    defaultColor: p.defaultColor,
     source: 'cj',
   }
 }

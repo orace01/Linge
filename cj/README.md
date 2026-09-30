@@ -29,6 +29,11 @@ Un bloc par produit :
 - `excludeColors` : couleurs CJ à ne pas vendre (nom CJ ou nom français).
 - `colorNames` : pour renommer une couleur (les couleurs courantes sont traduites automatiquement ; l'import
   signale celles qu'il faut renommer).
+- `skipPhotos` : photos CJ à écarter, par position (1 = la première), par ex. un tableau de tailles : `[4]`.
+- `mainPhoto` : position de la photo CJ à montrer en premier (cartes, fiche produit).
+- `defaultColor` : couleur sélectionnée à l'ouverture de la fiche (nom français), celle de la photo principale.
+
+Les photos qui ne servent plus (écartées, retirées chez CJ) sont supprimées de `public/products/` à l'import.
 
 ## 2. Importer
 
@@ -37,7 +42,8 @@ npm run cj:import              # vrai import (clé CJ_API_KEY dans .env.local)
 npm run cj:import -- --mock    # données simulées, pour tester sans la clé
 ```
 
-Le script écrit `src/data/cj-catalog.ts` et enregistre les photos en WebP dans `public/products/<sku>/01.webp, 02.webp…`.
+Le script écrit `src/data/cj-catalog.ts` et enregistre les photos en WebP dans `public/products/<sku>/`
+(un nom par photo CJ, par ex. `3f2a9c01be.webp`).
 **Les photos déjà présentes ne sont jamais écrasées** : tu peux les retoucher (même nom de fichier, format WebP),
 puis relancer l'import sans risque. Pour récupérer à nouveau la photo CJ, supprime le fichier.
 
@@ -55,7 +61,7 @@ npm run cj:sync     # en local : écrit .data/stock.json (ou dans Vercel Blob si
 En ligne, la synchro tourne dans **GitHub Actions** toutes les 8 heures (`.github/workflows/sync-stock.yml`),
 et chaque « Passer commande » revérifie en direct les variantes du panier.
 
-Budget CJ (1 000 appels par jour pour un compte gratuit) : 3 synchros × ~200 = ~600, le reste pour les
+Budget CJ (1 000 appels par jour pour un compte gratuit) : 3 synchros × ~230 variantes = ~700, le reste pour les
 vérifications de panier et les imports. Si ta sélection grossit, espace les synchros (ligne `cron` du workflow).
 
 ## 4. Configuration

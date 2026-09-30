@@ -12,6 +12,14 @@ import { formatPrice } from '../lib/format'
 
 type LevelOf = (vid: string | undefined) => StockLevel | null
 
+/** the colour shown on the main photo, so the first view matches the selection */
+function defaultColor(product: ProductType | undefined) {
+  if (!product) return ''
+  if (product.defaultColor && product.colors.includes(product.defaultColor)) return product.defaultColor
+  const main = product.images?.[0] ?? product.image
+  return product.variants.find((v) => main && v.image === main)?.color ?? product.colors[0] ?? ''
+}
+
 /** first size of `color` that is not sold out (or simply the first one when stock is unknown) */
 function firstAvailableSize(product: ProductType, color: string, level: LevelOf) {
   const sizes = product.sizes.filter((s) => findVariant(product, color, s))
@@ -30,7 +38,7 @@ function ProductPage({ slug }: { slug: string | undefined }) {
   const { isFavorite, toggleFavorite } = useFavorites()
   const { variant: variantStock, level, snapshot } = useStock()
 
-  const [color, setColor] = useState(product?.colors[0] ?? '')
+  const [color, setColor] = useState(() => defaultColor(product))
   const [chosenSize, setChosenSize] = useState<string | null>(null)
   const [imageIndex, setImageIndex] = useState(0)
   const [added, setAdded] = useState(false)

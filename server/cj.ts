@@ -75,15 +75,20 @@ async function request<T>(
 ): Promise<T> {
   const headers: Record<string, string> = { 'Content-Type': 'application/json' }
   if (auth) headers['CJ-Access-Token'] = await accessToken()
-  await throttle()
-
   const url = new URL(BASE + path)
   for (const [k, v] of Object.entries(query ?? {})) url.searchParams.set(k, v)
-  const res = await fetch(url, { method, headers, body: body === undefined ? undefined : JSON.stringify(body) })
-  const json = (await res.json().catch(() => null)) as CjEnvelope<T> | null
-  const ok = res.ok && json !== null && (json.result === true || json.code === 200)
-  if (!ok) throw new CjError(json?.message || `CJ HTTP ${res.status} on ${path}`, json?.code ?? res.status)
-  return json.data
+
+  // CJ sometimes answers "Too Many Requests" even at 1 call per second: wait and retry
+  for (let attempt = 1; ; attempt++) {
+    await throttle()
+    const res = await fetch(url, { method, headers, body: body === undefined ? undefined : JSON.stringify(body) })
+    const json = (await res.json().catch(() => null)) as CjEnvelope<T> | null
+    if (res.ok && json !== null && (json.result === true || json.code === 200)) return json.data
+    const message = json?.message || `CJ HTTP ${res.status} on ${path}`
+    const tooMany = res.status === 429 || /too many requests/i.test(message)
+    if (!tooMany || attempt >= 3) throw new CjError(message, json?.code ?? res.status)
+    await new Promise((r) => setTimeout(r, 1500 * attempt))
+  }
 }
 
 /** Access tokens last 180 days; CJ returns the same one for 24h, we keep it while the instance lives. */

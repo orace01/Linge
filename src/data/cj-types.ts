@@ -26,6 +26,8 @@ export type CjCatalogProduct = {
   /** selling price, EUR */
   price: number
   images: string[]
+  /** colour selected when the product page opens */
+  defaultColor?: string
   variants: CjCatalogVariant[]
   isNew?: boolean
   isBestSeller?: boolean

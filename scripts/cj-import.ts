@@ -5,11 +5,12 @@
 
   Reads cj/selection.json, fetches each product from CJ and writes
   src/data/cj-catalog.ts. Photos are saved as WebP (1100 px max) in
-  public/products/<sku>/ - files that already exist are never overwritten,
-  so retouched photos are kept.
+  public/products/<sku>/, named after their CJ URL - files that already exist
+  are never overwritten, so retouched photos are kept.
 */
+import { createHash } from 'node:crypto'
 import { existsSync, readFileSync } from 'node:fs'
-import { mkdir, writeFile } from 'node:fs/promises'
+import { mkdir, readdir, rm, writeFile } from 'node:fs/promises'
 import sharp from 'sharp'
 import { categories } from '../src/data/catalog.js'
 import type { CjCatalog, CjCatalogProduct, CjCatalogVariant } from '../src/data/cj-types.js'
@@ -40,6 +41,12 @@ type SelectionItem = {
   /** hide some CJ colours, e.g. ["Blue"] (CJ names or French names) */
   excludeColors?: string[]
   colorNames?: Record<string, string>
+  /** CJ product photos to leave out, by position (1 = first), e.g. a size chart */
+  skipPhotos?: number[]
+  /** CJ photo shown first (cards, product page), by position */
+  mainPhoto?: number
+  /** colour selected when the product page opens (French name), e.g. the one on the main photo */
+  defaultColor?: string
 }
 type Selection = {
   pricing: { usdToEur: number; markup: number }
@@ -98,8 +105,9 @@ function sellingPrice(maxCostUsd: number) {
   return Math.max(9.9, Math.ceil(eur) - 0.1) // 23.46 -> 23.90
 }
 
-async function download(url: string, dir: string, index: number) {
-  const file = `${dir}/${String(index + 1).padStart(2, '0')}.webp`
+async function download(url: string, dir: string) {
+  // named after the CJ URL: a retouched file stays attached to its photo whatever the order
+  const file = `${dir}/${createHash('sha1').update(url).digest('hex').slice(0, 10)}.webp`
   const publicPath = file.replace(/^public/, '')
   if (existsSync(file)) return publicPath
   const res = await fetch(url)
@@ -168,16 +176,23 @@ for (const [i, item] of selection.products.entries()) {
     while (slugs.has(slug)) slug = `${slug}-${slugs.size}`
     slugs.add(slug)
 
-    let images = productImages(detail)
+    const skipped = new Set(item.skipPhotos ?? [])
+    const cjImages = productImages(detail)
+    const main = item.mainPhoto ? cjImages[item.mainPhoto - 1] : undefined
+    let images = cjImages.filter((url, n) => !skipped.has(n + 1) && url !== main)
+    if (main) images = [main, ...images]
     const variantImages = [...new Set(variants.map((v) => v.image).filter((u): u is string => Boolean(u)))]
     if (DOWNLOAD) {
       const dir = `public/products/${detail.productSku ?? ref}`
       await mkdir(dir, { recursive: true })
       const all = [...new Set([...images, ...variantImages])]
       const local = new Map<string, string>()
-      for (const [n, url] of all.entries()) local.set(url, await download(url, dir, n))
+      for (const url of all) local.set(url, await download(url, dir))
       images = images.map((u) => local.get(u) ?? u)
       for (const v of variants) if (v.image) v.image = local.get(v.image) ?? v.image
+      // photos no longer used (skipped, gone at CJ) are removed
+      const used = new Set([...local.values()].map((path) => path.split('/').pop()))
+      for (const file of await readdir(dir)) if (file.endsWith('.webp') && !used.has(file)) await rm(`${dir}/${file}`)
     }
 
     const maxCost = Math.max(...variants.map((v) => v.cost))
@@ -191,6 +206,7 @@ for (const [i, item] of selection.products.entries()) {
       category: item.category,
       price: item.price ?? sellingPrice(maxCost),
       images,
+      defaultColor: item.defaultColor,
       variants,
       isNew: item.isNew,
       isBestSeller: item.isBestSeller,

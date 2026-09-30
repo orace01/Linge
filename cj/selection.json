@@ -5,20 +5,261 @@
   },
   "products": [
     {
-      "sku": "CJQQ1416398",
+      "sku": "CJYD2756123",
       "category": "bodys",
-      "name": "Body Dentelle Nuit",
-      "isNew": true
+      "name": "Body Voile Harnais",
+      "description": "Un body en voile transparent souligné de fines bretelles graphiques et d'un col ras-du-cou. Structuré, léger, résolument audacieux.",
+      "price": 39.9,
+      "isNew": true,
+      "skipPhotos": [
+        3
+      ]
     },
     {
-      "sku": "CJNSSYQQ00886",
+      "sku": "CJLY2017836",
       "category": "ensembles",
-      "name": "Ensemble Bandeau Dentelle"
+      "name": "Ensemble Lanières",
+      "description": "Soutien-gorge ouvert à lanières, string et jarretières assortis. Un ensemble graphique pour les soirs où l'on ose tout.",
+      "price": 34.9,
+      "excludeColors": [
+        "Yellow Green"
+      ],
+      "colorNames": {
+        "Scarlet": "Noir et rouge"
+      },
+      "skipPhotos": [
+        1,
+        4,
+        7,
+        11
+      ]
     },
     {
-      "sku": "CJYD2748751",
+      "sku": "CJNSSYQQ00199",
+      "category": "lingerie-de-nuit",
+      "name": "Nuisette Voile Épaules Nues",
+      "description": "Une nuisette vaporeuse en voile transparent, bordée de dentelle, qui dégage les épaules. Livrée avec son string assorti.",
+      "price": 34.9,
+      "isBestSeller": true,
+      "skipPhotos": [
+        6
+      ]
+    },
+    {
+      "sku": "CJYD3087005",
       "category": "ensembles",
-      "name": "Ensemble Dentelle Ajourée"
+      "name": "Guêpière Dentelle Lacée",
+      "description": "Guêpière en dentelle lacée sur le devant, jupette volantée et jarretelles. Disponible avec ou sans bas assortis.",
+      "price": 44.9,
+      "isNew": true,
+      "colorNames": {
+        "White with Stockings": "Blanc avec bas",
+        "Red with Stockings": "Rouge avec bas"
+      }
+    },
+    {
+      "sku": "CJYD2478752",
+      "category": "lingerie-de-nuit",
+      "name": "Nuisette Dos Nu Dentelle",
+      "description": "Nuisette à col licou, bonnets en dentelle et voile fluide jusqu'à mi-cuisse. Le dos nu fait le reste.",
+      "price": 29.9,
+      "isBestSeller": true,
+      "excludeColors": [
+        "Blue"
+      ],
+      "skipPhotos": [
+        2
+      ],
+      "mainPhoto": 10
+    },
+    {
+      "sku": "CJYD3112546",
+      "category": "ensembles",
+      "name": "Ensemble Porte-Jarretelles Dentelle",
+      "description": "Soutien-gorge, porte-jarretelles et string en dentelle : un ensemble complet, pensé pour être porté avec des bas.",
+      "price": 44.9,
+      "isNew": true,
+      "excludeColors": [
+        "Green"
+      ],
+      "colorNames": {
+        "Black And Red": "Noir et rouge",
+        "Black Skin Color": "Noir et nude"
+      },
+      "skipPhotos": [
+        6,
+        9
+      ],
+      "defaultColor": "Noir et rouge"
+    },
+    {
+      "sku": "CJYD3162994",
+      "category": "ensembles",
+      "name": "Ensemble Harnais",
+      "description": "Soutien-gorge ouvert à harnais, string et jarretières. Des lignes nettes, un effet bijou sur la peau.",
+      "price": 29.9
+    },
+    {
+      "sku": "CJYD2593842",
+      "category": "ensembles",
+      "name": "Ensemble Brodé Balconnet",
+      "description": "Balconnet brodé de motifs floraux et string assorti en tulle transparent. Un classique de la lingerie, tout en finesse.",
+      "price": 34.9,
+      "isBestSeller": true,
+      "excludeColors": [
+        "Blue"
+      ],
+      "skipPhotos": [
+        1
+      ]
+    },
+    {
+      "sku": "CJTZ1436797",
+      "category": "bodys",
+      "name": "Body Dentelle Dos Nu",
+      "description": "Body au décolleté en V bordé de cils de dentelle, dos nu et fines bretelles. Se porte seul ou sous une veste.",
+      "price": 39.9,
+      "isNew": true,
+      "excludeColors": [
+        "Dark green"
+      ],
+      "skipPhotos": [
+        4,
+        7,
+        9
+      ],
+      "mainPhoto": 16
+    },
+    {
+      "sku": "CJYD2593351",
+      "category": "ensembles",
+      "name": "Ensemble Plumetis",
+      "description": "Soutien-gorge et string en tulle plumetis ultra-fin. Une transparence délicate, presque invisible sous les vêtements.",
+      "price": 32.9,
+      "colorNames": {
+        "Leopard Print": "Noir"
+      }
+    },
+    {
+      "sku": "CJNSSYTZ03935",
+      "category": "ensembles",
+      "name": "Bralette & Shorty Dentelle",
+      "description": "Bralette sans armatures et shorty en dentelle, bretelles croisées dans le dos. Taille unique, tout en douceur.",
+      "price": 29.9,
+      "excludeColors": [
+        "Orange",
+        "Green",
+        "Blue"
+      ],
+      "colorNames": {
+        "Pink": "Rose poudré"
+      }
+    },
+    {
+      "sku": "CJQQ1416310",
+      "category": "bodys",
+      "name": "Body Dentelle Ajouré",
+      "description": "Body en dentelle noire aux découpes ajourées sur la taille, décolleté plongeant bordé de cils.",
+      "price": 34.9
+    },
+    {
+      "sku": "CJSY1172234",
+      "category": "bodys",
+      "name": "Body Résille",
+      "description": "Body extensible en résille et dentelle, en trois coupes : manches longues, dos croisé ou col licou. Taille unique.",
+      "price": 24.9,
+      "colorNames": {
+        "Black": "Noir manches longues",
+        "Black A": "Noir croisé",
+        "Black AA": "Noir col licou"
+      }
+    },
+    {
+      "sku": "CJYD2547399",
+      "category": "ensembles",
+      "name": "Ensemble Satin à Lanières",
+      "description": "Soutien-gorge push-up à armatures, culotte et lanières en satin brillant qui dessinent la silhouette.",
+      "price": 59.9,
+      "isNew": true,
+      "excludeColors": [
+        "Red",
+        "RoseRed",
+        "Blue",
+        "Green",
+        "LightBlue",
+        "LeopardPrint",
+        "NeonGreen"
+      ],
+      "colorNames": {
+        "Pink": "Rose poudré"
+      },
+      "skipPhotos": [
+        6,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "defaultColor": "Rose poudré"
+    },
+    {
+      "sku": "CJYD2783884",
+      "category": "ensembles",
+      "name": "Ensemble Dentelle Généreuse",
+      "description": "Soutien-gorge corbeille à armatures et string en dentelle, pensés pour les poitrines généreuses.",
+      "price": 34.9,
+      "excludeColors": [
+        "Orange"
+      ],
+      "colorNames": {
+        "Purple": "Lilas"
+      },
+      "skipPhotos": [
+        1,
+        2,
+        5
+      ]
+    },
+    {
+      "sku": "CJYD2624815",
+      "category": "ensembles",
+      "name": "Déguisement Policière",
+      "description": "Body zippé en tulle bleu marine orné d'un écusson, porte-jarretelles et string assortis. Avec ou sans casquette, pour des jeux de rôle en toute élégance.",
+      "price": 44.9,
+      "colorNames": {
+        "Navy Blue": "Bleu marine avec casquette",
+        "Navy Blue Without Hat": "Bleu marine sans casquette"
+      },
+      "mainPhoto": 4,
+      "defaultColor": "Bleu marine avec casquette"
+    },
+    {
+      "sku": "CJQQ1416474",
+      "category": "ensembles",
+      "name": "Déguisement Écolière",
+      "description": "Haut dos nu à col et cravate, jupe plissée à carreaux bordée de dentelle et string assorti. Six tartans au choix.",
+      "price": 34.9,
+      "colorNames": {
+        "Yellow": "Carreaux jaunes",
+        "Purple": "Carreaux violets",
+        "Black": "Carreaux rouges, haut noir",
+        "Pink": "Carreaux roses",
+        "Grey": "Carreaux gris",
+        "Dark Green": "Carreaux verts"
+      },
+      "skipPhotos": [
+        1,
+        2,
+        3,
+        5,
+        7,
+        9,
+        12
+      ],
+      "mainPhoto": 6,
+      "defaultColor": "Carreaux violets"
     }
   ]
 }
