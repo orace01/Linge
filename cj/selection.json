@@ -1,0 +1,24 @@
+{
+  "pricing": {
+    "usdToEur": 0.92,
+    "markup": 3
+  },
+  "products": [
+    {
+      "sku": "CJQQ1416398",
+      "category": "bodys",
+      "name": "Body Dentelle Nuit",
+      "isNew": true
+    },
+    {
+      "sku": "CJNSSYQQ00886",
+      "category": "ensembles",
+      "name": "Ensemble Bandeau Dentelle"
+    },
+    {
+      "sku": "CJYD2748751",
+      "category": "ensembles",
+      "name": "Ensemble Dentelle Ajourée"
+    }
+  ]
+}

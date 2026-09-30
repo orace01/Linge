@@ -3,15 +3,18 @@ import { useParams, useSearchParams } from 'react-router-dom'
 import { getCategoryBySlug, products } from '../data/catalog'
 import { ProductCard } from '../components/ProductCard'
 import { ChevronDownIcon } from '../components/icons'
+import { useStock } from '../context/StockContext'
 
-const allSizes = ['XS', 'S', 'M', 'L']
-const allColors = ['Noir', 'Rose poudré', 'Bordeaux', 'Prune', 'Ivoire']
-const allCuts = Array.from(new Set(products.map((p) => p.cut)))
+const SIZE_ORDER = ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', '2XL', '3XL', 'Unique']
+const allSizes = [...new Set(products.flatMap((p) => p.sizes))].sort((a, b) => SIZE_ORDER.indexOf(a) - SIZE_ORDER.indexOf(b))
+const allColors = [...new Set(products.flatMap((p) => p.colors))].sort((a, b) => a.localeCompare(b, 'fr'))
+const allCuts = [...new Set(products.map((p) => p.cut).filter((c): c is string => Boolean(c)))]
 
 export function Collection() {
   const { slug } = useParams<{ slug?: string }>()
   const [searchParams] = useSearchParams()
   const activeCategory = slug ? getCategoryBySlug(slug) : undefined
+  const { productLevel } = useStock()
 
   const [size, setSize] = useState<string | null>(null)
   const [color, setColor] = useState<string | null>(null)
@@ -26,10 +29,10 @@ export function Collection() {
     if (size) list = list.filter((p) => p.sizes.includes(size))
     if (color) list = list.filter((p) => p.colors.includes(color))
     if (cut) list = list.filter((p) => p.cut === cut)
-    if (inStockOnly) list = list.filter((p) => p.inStock)
+    if (inStockOnly) list = list.filter((p) => productLevel(p) !== 'out')
     if (sortedByNew) list = [...list].sort((a, b) => Number(b.isNew) - Number(a.isNew))
     return list
-  }, [activeCategory, size, color, cut, inStockOnly, sortedByNew])
+  }, [activeCategory, size, color, cut, inStockOnly, sortedByNew, productLevel])
 
   const resetFilters = () => {
     setSize(null)
@@ -69,7 +72,7 @@ export function Collection() {
                   <button
                     key={s}
                     onClick={() => setSize(size === s ? null : s)}
-                    className={`h-9 w-9 rounded-full text-xs transition ${
+                    className={`h-9 min-w-9 rounded-full px-2 text-xs transition ${
                       size === s ? 'bg-wine text-surface' : 'border border-border text-ink hover:border-wine'
                     }`}
                   >
@@ -96,22 +99,24 @@ export function Collection() {
               </div>
             </div>
 
-            <div>
-              <p className="mb-2.5 text-[11px] uppercase tracking-widest text-ink-muted">Coupe</p>
-              <div className="flex flex-wrap gap-2">
-                {allCuts.map((c) => (
-                  <button
-                    key={c}
-                    onClick={() => setCut(cut === c ? null : c)}
-                    className={`rounded-full px-4 py-2 text-xs transition ${
-                      cut === c ? 'bg-wine text-surface' : 'border border-border text-ink hover:border-wine'
-                    }`}
-                  >
-                    {c}
-                  </button>
-                ))}
+            {allCuts.length > 0 && (
+              <div>
+                <p className="mb-2.5 text-[11px] uppercase tracking-widest text-ink-muted">Coupe</p>
+                <div className="flex flex-wrap gap-2">
+                  {allCuts.map((c) => (
+                    <button
+                      key={c}
+                      onClick={() => setCut(cut === c ? null : c)}
+                      className={`rounded-full px-4 py-2 text-xs transition ${
+                        cut === c ? 'bg-wine text-surface' : 'border border-border text-ink hover:border-wine'
+                      }`}
+                    >
+                      {c}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             <div>
               <p className="mb-2.5 text-[11px] uppercase tracking-widest text-ink-muted">Disponibilité</p>

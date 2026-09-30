@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { products } from '../data/catalog'
 import { CloseIcon, SearchIcon } from './icons'
+import { formatPrice } from '../lib/format'
 
 export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [query, setQuery] = useState('')
@@ -43,7 +44,7 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
                 className="flex w-full items-center justify-between text-left text-sm uppercase tracking-wide text-surface/80 hover:text-surface"
               >
                 <span>{p.name}</span>
-                <span>{p.price}&nbsp;€</span>
+                <span>{formatPrice(p.price)}</span>
               </button>
             </li>
           ))}

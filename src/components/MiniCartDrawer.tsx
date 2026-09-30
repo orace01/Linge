@@ -3,6 +3,7 @@ import { useCart } from '../context/CartContext'
 import { colorwayOf, getProductBySlug } from '../data/catalog'
 import { FabricMedia } from './FabricMedia'
 import { CloseIcon } from './icons'
+import { formatPrice } from '../lib/format'
 
 export function MiniCartDrawer() {
   const { items, isMiniCartOpen, closeMiniCart, removeItem, totalPrice } = useCart()
@@ -53,7 +54,7 @@ export function MiniCartDrawer() {
                         </button>
                       </div>
                       <p className="text-sm text-ink">
-                        {item.quantity} × {product.price}&nbsp;€
+                        {item.quantity} × {formatPrice(product.price)}
                       </p>
                     </div>
                   </li>
@@ -67,7 +68,7 @@ export function MiniCartDrawer() {
           <div className="border-t border-border px-6 py-5">
             <div className="flex items-center justify-between text-sm text-ink">
               <span>Sous-total</span>
-              <span className="font-display text-lg">{totalPrice}&nbsp;€</span>
+              <span className="font-display text-lg">{formatPrice(totalPrice)}</span>
             </div>
             <Link
               to="/panier"

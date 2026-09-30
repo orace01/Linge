@@ -1,10 +1,52 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import { colorwayOf, getProductBySlug } from '../data/catalog'
 import { FabricMedia } from '../components/FabricMedia'
+import { formatPrice } from '../lib/format'
+
+type CheckedLine = {
+  slug: string
+  color: string
+  size: string
+  name: string
+  available: number | null
+  problem?: 'unknown-product' | 'unknown-variant' | 'out-of-stock' | 'not-enough'
+}
+type Check = { cart: string } & (
+  | { status: 'idle' | 'loading' | 'error' }
+  | { status: 'ok' | 'issues'; lines: CheckedLine[] }
+)
+
+function problemText(line: CheckedLine) {
+  if (line.problem === 'out-of-stock') return 'épuisé'
+  if (line.problem === 'not-enough') return `plus que ${line.available} disponible${(line.available ?? 0) > 1 ? 's' : ''}`
+  return 'n’est plus proposé'
+}
 
 export function Cart() {
   const { items, removeItem, updateQuantity, totalPrice } = useCart()
+  const cart = JSON.stringify(items)
+  const [lastCheck, setCheck] = useState<Check>({ cart, status: 'idle' })
+  // a check only applies to the cart it was made for
+  const check: Check = lastCheck.cart === cart ? lastCheck : { cart, status: 'idle' }
+
+  // stock and prices are checked by the server right before payment
+  const handleCheckout = async () => {
+    setCheck({ cart, status: 'loading' })
+    try {
+      const res = await fetch('/api/checkout/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: items.map(({ slug, color, size, quantity }) => ({ slug, color, size, quantity })) }),
+      })
+      const data = (await res.json()) as { ok?: boolean; lines?: CheckedLine[] }
+      if (!res.ok || !data.lines) throw new Error()
+      setCheck({ cart, status: data.ok ? 'ok' : 'issues', lines: data.lines })
+    } catch {
+      setCheck({ cart, status: 'error' })
+    }
+  }
 
   return (
     <div className="mx-auto max-w-[1400px] px-5 py-12 lg:px-10 lg:py-16">
@@ -41,7 +83,7 @@ export function Cart() {
                           {item.color} — Taille {item.size}
                         </p>
                       </div>
-                      <p className="text-[15px] text-ink">{product.price}&nbsp;€</p>
+                      <p className="text-[15px] text-ink">{formatPrice(product.price)}</p>
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center rounded-full border border-border">
@@ -81,7 +123,7 @@ export function Cart() {
             <p className="font-display text-lg text-ink">Récapitulatif</p>
             <div className="mt-5 flex justify-between text-sm text-ink-muted">
               <span>Sous-total</span>
-              <span>{totalPrice}&nbsp;€</span>
+              <span>{formatPrice(totalPrice)}</span>
             </div>
             <div className="mt-2.5 flex justify-between text-sm text-ink-muted">
               <span>Livraison</span>
@@ -89,11 +131,37 @@ export function Cart() {
             </div>
             <div className="mt-5 flex justify-between border-t border-border pt-5 font-display text-xl text-ink">
               <span>Total</span>
-              <span>{totalPrice}&nbsp;€</span>
+              <span>{formatPrice(totalPrice)}</span>
             </div>
-            <button className="mt-6 w-full rounded-full bg-wine py-4 text-xs font-medium uppercase tracking-widest text-surface transition hover:bg-wine-hover">
-              Passer commande
+            <button
+              onClick={handleCheckout}
+              disabled={check.status === 'loading'}
+              className="mt-6 w-full rounded-full bg-wine py-4 text-xs font-medium uppercase tracking-widest text-surface transition hover:bg-wine-hover disabled:opacity-60"
+            >
+              {check.status === 'loading' ? 'Vérification du stock…' : 'Passer commande'}
             </button>
+            <div aria-live="polite" className="mt-4 text-xs leading-relaxed">
+              {check.status === 'ok' && (
+                <p className="text-success">Tout est disponible. Le paiement en ligne arrive très bientôt.</p>
+              )}
+              {check.status === 'issues' && (
+                <div className="text-error">
+                  <ul className="space-y-1">
+                    {check.lines
+                      .filter((l) => l.problem)
+                      .map((l) => (
+                        <li key={`${l.slug}-${l.color}-${l.size}`}>
+                          {l.name} ({l.color}, {l.size}) : {problemText(l)}
+                        </li>
+                      ))}
+                  </ul>
+                  <p className="mt-2 text-ink-muted">Ajustez votre panier puis réessayez.</p>
+                </div>
+              )}
+              {check.status === 'error' && (
+                <p className="text-error">Impossible de vérifier le stock pour le moment. Réessayez dans un instant.</p>
+              )}
+            </div>
           </div>
         </div>
       )}

@@ -2,14 +2,17 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { colorwayOf, type Product } from '../data/catalog'
 import { useFavorites } from '../context/FavoritesContext'
+import { useStock } from '../context/StockContext'
 import { FabricMedia } from './FabricMedia'
 import { HeartIcon } from './icons'
+import { formatPrice } from '../lib/format'
 
 export function ProductCard({ product }: { product: Product }) {
   const { isFavorite, toggleFavorite } = useFavorites()
   const [hovered, setHovered] = useState(false)
   const fav = isFavorite(product.slug)
-  const badge = product.isNew ? 'Nouveau' : product.isBestSeller ? 'Best-seller' : null
+  const soldOut = useStock().productLevel(product) === 'out'
+  const badge = soldOut ? 'Épuisé' : product.isNew ? 'Nouveau' : product.isBestSeller ? 'Best-seller' : null
 
   return (
     <Link
@@ -43,7 +46,11 @@ export function ProductCard({ product }: { product: Product }) {
           />
         )}
         {badge && (
-          <span className="absolute left-3.5 top-3.5 rounded-full bg-rose-soft px-3 py-1.5 text-[10px] uppercase tracking-wide text-wine">
+          <span
+            className={`absolute left-3.5 top-3.5 rounded-full px-3 py-1.5 text-[10px] uppercase tracking-wide ${
+              soldOut ? 'bg-surface text-ink-muted' : 'bg-rose-soft text-wine'
+            }`}
+          >
             {badge}
           </span>
         )}
@@ -64,7 +71,7 @@ export function ProductCard({ product }: { product: Product }) {
         <div>
           <p className="font-display text-xl leading-tight transition group-hover:italic">{product.name}</p>
           <p className="mt-1 text-[11px] uppercase tracking-wide text-ink-muted">
-            {product.category} — {product.price}&nbsp;€
+            {product.category} — {formatPrice(product.price)}
           </p>
         </div>
         <span className="whitespace-nowrap rounded-full border border-border px-4 py-1.5 text-[11px] uppercase tracking-wide transition group-hover:border-wine group-hover:text-wine">
