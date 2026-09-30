@@ -28,7 +28,11 @@ export function Cart() {
               if (!product) return null
               return (
                 <div key={`${item.slug}-${item.color}-${item.size}`} className="mb-7 flex gap-6 border-b border-border pb-7">
-                  <FabricMedia colorway={colorwayOf(item.color)} motion="still" className="aspect-[3/4] w-24 shrink-0 rounded-xl" />
+                  {product.image ? (
+                    <img src={product.image} alt="" className="aspect-[3/4] w-24 shrink-0 rounded-xl object-cover" />
+                  ) : (
+                    <FabricMedia colorway={colorwayOf(item.color)} motion="still" className="aspect-[3/4] w-24 shrink-0 rounded-xl" />
+                  )}
                   <div className="flex flex-1 flex-col justify-between">
                     <div className="flex items-start justify-between gap-3">
                       <div>

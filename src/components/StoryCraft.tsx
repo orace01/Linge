@@ -1,14 +1,22 @@
 import { Link } from 'react-router-dom'
-import { FabricMedia } from './FabricMedia'
 import { ArrowRightIcon } from './icons'
 import { Reveal } from './Reveal'
 
 export function StoryCraft() {
   return (
     <section className="tex-velvet-deep px-5 py-16 lg:px-10 lg:py-24">
-      <div className="mx-auto grid max-w-[1400px] items-center gap-10 sm:grid-cols-2 sm:gap-14">
+      <div className="mx-auto grid max-w-[1400px] items-center gap-10 sm:gap-14 lg:grid-cols-[1.15fr_1fr]">
         <Reveal>
-          <FabricMedia colorway="ivoire" motion="inview" className="aspect-[4/5] rounded-[28px]" />
+          <div className="overflow-hidden rounded-[28px]">
+            <img
+              src="/lucea/11-atelier-savoir-faire.webp"
+              alt="Mains d'une couturière brodant une dentelle florale noire sur un tissu ivoire"
+              width={1248}
+              height={832}
+              loading="lazy"
+              className="aspect-[3/2] w-full object-cover transition duration-[2000ms] ease-out hover:scale-[1.04]"
+            />
+          </div>
         </Reveal>
         <Reveal delay={150}>
           <span className="text-[11px] uppercase tracking-[0.2em] text-surface/80">Savoir-faire</span>

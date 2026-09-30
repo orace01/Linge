@@ -5,7 +5,7 @@ import { ProductCard } from '../components/ProductCard'
 import { ChevronDownIcon } from '../components/icons'
 
 const allSizes = ['XS', 'S', 'M', 'L']
-const allColors = ['Rose poudré', 'Bordeaux', 'Prune', 'Ivoire']
+const allColors = ['Noir', 'Rose poudré', 'Bordeaux', 'Prune', 'Ivoire']
 const allCuts = Array.from(new Set(products.map((p) => p.cut)))
 
 export function Collection() {

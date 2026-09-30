@@ -22,6 +22,10 @@ type Slide = {
   title: [string, string]
   text: string
   cta: { label: string; to: string }
+  /** no wide/extended version: the photo simply covers the frame, anchored at the top */
+  cover?: boolean
+  /** soft dark veil behind the text, when the photo is light under part of it */
+  scrim?: boolean
 }
 
 const slides: Slide[] = [
@@ -56,6 +60,16 @@ const slides: Slide[] = [
     title: ['Tout en', 'transparence.'],
     text: 'Un body en dentelle prune qui dessine sans contraindre.',
     cta: { label: 'Découvrir les bodys', to: '/collection/bodys' },
+  },
+  {
+    image: 'slide-5',
+    alt: 'Mannequin en body de dentelle noire et long kimono en satin, à côté d’un mur de roses en papier',
+    eyebrow: 'Série N° 05',
+    title: ["L'éclat", 'des roses.'],
+    text: 'Dentelle noire, satin et roses.',
+    cta: { label: 'Découvrir la collection', to: '/boutique' },
+    cover: true,
+    scrim: true,
   },
 ]
 
@@ -160,7 +174,9 @@ export function Hero() {
             >
               <div className={`absolute inset-0 ${i === 0 ? 'hero-kenburns' : ''}`}>
                 <picture>
-                  <source media="(min-width: 1024px)" srcSet={`/hero/${slide.image}-wide.webp`} width={3520} height={1597} />
+                  {!slide.cover && (
+                    <source media="(min-width: 1024px)" srcSet={`/hero/${slide.image}-wide.webp`} width={3520} height={1597} />
+                  )}
                   <img
                     src={`/hero/${slide.image}.webp`}
                     alt={slide.alt}
@@ -168,10 +184,18 @@ export function Hero() {
                     height={1097}
                     fetchPriority={i === 0 ? 'high' : 'low'}
                     decoding="async"
-                    className="absolute inset-0 h-full w-full object-cover object-[76%_30%] sm:object-[62%_40%] lg:bottom-auto lg:left-1/2 lg:right-auto lg:h-[calc(1118*var(--s))] lg:w-auto lg:max-w-none lg:-translate-x-1/2"
+                    className={`absolute inset-0 h-full w-full object-cover object-[76%_30%] sm:object-[62%_40%] ${
+                      slide.cover
+                        ? 'lg:object-top'
+                        : 'lg:bottom-auto lg:left-1/2 lg:right-auto lg:h-[calc(1118*var(--s))] lg:w-auto lg:max-w-none lg:-translate-x-1/2'
+                    }`}
                   />
                 </picture>
               </div>
+
+              {slide.scrim && (
+                <div className="absolute inset-0 hidden bg-[radial-gradient(ellipse_48%_42%_at_20%_58%,rgb(0_0_0/0.4),transparent)] lg:block" />
+              )}
 
               {/* mobile: dark gradient under the text */}
               <div className="absolute inset-x-0 bottom-0 h-[62%] bg-gradient-to-t from-ink/90 via-ink/45 to-transparent lg:hidden" />

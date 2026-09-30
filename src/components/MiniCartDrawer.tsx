@@ -35,7 +35,11 @@ export function MiniCartDrawer() {
                 if (!product) return null
                 return (
                   <li key={`${item.slug}-${item.color}-${item.size}`} className="flex gap-4">
-                    <FabricMedia colorway={colorwayOf(item.color)} motion="still" className="aspect-[3/4] w-20 shrink-0 rounded-xl" />
+                    {product.image ? (
+                      <img src={product.image} alt="" className="aspect-[3/4] w-20 shrink-0 rounded-xl object-cover" />
+                    ) : (
+                      <FabricMedia colorway={colorwayOf(item.color)} motion="still" className="aspect-[3/4] w-20 shrink-0 rounded-xl" />
+                    )}
                     <div className="flex flex-1 flex-col justify-between">
                       <div className="flex items-start justify-between gap-2">
                         <div>

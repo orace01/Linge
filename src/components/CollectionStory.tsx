@@ -81,12 +81,12 @@ export function CollectionStory() {
             <figure>
               <div className="overflow-hidden rounded-[20px]">
                 <img
-                  src="/campaign/lace.webp"
-                  alt="Gros plan sur une dentelle florale noire et sa ceinture élastique"
-                  width={460}
-                  height={380}
+                  src="/lucea/10-matiere-dentelle.webp"
+                  alt="Gros plan sur une dentelle florale noire brodée de fleurs roses, posée sur du satin"
+                  width={1248}
+                  height={832}
                   loading="lazy"
-                  className="aspect-[460/380] w-full object-cover transition duration-[2000ms] ease-out hover:scale-[1.06]"
+                  className="aspect-[3/2] w-full object-cover transition duration-[2000ms] ease-out hover:scale-[1.06]"
                 />
               </div>
               <Caption numeral="I" title="La dentelle" text="Des motifs floraux, légers sur la peau." />

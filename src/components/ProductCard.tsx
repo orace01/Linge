@@ -21,13 +21,27 @@ export function ProductCard({ product }: { product: Product }) {
       onBlur={() => setHovered(false)}
     >
       <div className="relative">
-        <FabricMedia
-          colorway={colorwayOf(product.colors[0])}
-          active={hovered}
-          zoom
-          flip={Number(product.id.slice(1)) % 2 === 0}
-          className="aspect-[4/5] rounded-2xl"
-        />
+        {product.image ? (
+          <div className="aspect-[4/5] overflow-hidden rounded-2xl bg-surface-soft">
+            <img
+              src={product.image}
+              alt={product.name}
+              loading="lazy"
+              decoding="async"
+              className={`h-full w-full object-cover transition-transform duration-[1800ms] ease-out ${
+                hovered ? 'motion-safe:scale-[1.07]' : ''
+              }`}
+            />
+          </div>
+        ) : (
+          <FabricMedia
+            colorway={colorwayOf(product.colors[0])}
+            active={hovered}
+            zoom
+            flip={Number(product.id.slice(1)) % 2 === 0}
+            className="aspect-[4/5] rounded-2xl"
+          />
+        )}
         {badge && (
           <span className="absolute left-3.5 top-3.5 rounded-full bg-rose-soft px-3 py-1.5 text-[10px] uppercase tracking-wide text-wine">
             {badge}

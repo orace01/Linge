@@ -43,29 +43,44 @@ export function Product() {
         {/* gallery */}
         <div className="lg:w-[560px] lg:flex-shrink-0">
           <div onMouseEnter={() => setGalleryHover(true)} onMouseLeave={() => setGalleryHover(false)}>
-            <FabricMedia
-              key={color}
-              colorway={colorwayOf(color)}
-              active={galleryHover}
-              zoom
-              alt={`${product.name}, coloris ${color}`}
-              className="aspect-[4/5] w-full rounded-3xl"
-            />
+            {product.image ? (
+              <div className="aspect-[4/5] w-full overflow-hidden rounded-3xl bg-surface-soft">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className={`h-full w-full object-cover transition-transform duration-[1800ms] ease-out ${
+                    galleryHover ? 'motion-safe:scale-[1.07]' : ''
+                  }`}
+                />
+              </div>
+            ) : (
+              <FabricMedia
+                key={color}
+                colorway={colorwayOf(color)}
+                active={galleryHover}
+                zoom
+                alt={`${product.name}, coloris ${color}`}
+                className="aspect-[4/5] w-full rounded-3xl"
+              />
+            )}
           </div>
-          <div className="mt-4 flex gap-4">
-            {product.colors.map((c) => (
-              <button
-                key={c}
-                onClick={() => setColor(c)}
-                aria-label={`Voir le coloris ${c}`}
-                className={`overflow-hidden rounded-xl ring-offset-2 ring-offset-page transition ${
-                  c === color ? 'ring-2 ring-wine' : 'opacity-80 hover:opacity-100'
-                }`}
-              >
-                <FabricMedia colorway={colorwayOf(c)} motion="still" className="aspect-[3/4] w-20" />
-              </button>
-            ))}
-          </div>
+          {/* colour swatches only when the visual is a fabric swatch (a photo shows one colour) */}
+          {!product.image && (
+            <div className="mt-4 flex gap-4">
+              {product.colors.map((c) => (
+                <button
+                  key={c}
+                  onClick={() => setColor(c)}
+                  aria-label={`Voir le coloris ${c}`}
+                  className={`overflow-hidden rounded-xl ring-offset-2 ring-offset-page transition ${
+                    c === color ? 'ring-2 ring-wine' : 'opacity-80 hover:opacity-100'
+                  }`}
+                >
+                  <FabricMedia colorway={colorwayOf(c)} motion="still" className="aspect-[3/4] w-20" />
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* info */}
