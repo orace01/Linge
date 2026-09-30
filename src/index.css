@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Fraunces", Georgia, serif;
+  --font-headline: "Bebas Neue", "Arial Narrow", sans-serif;
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+
+  --color-cream: #f4e5dc;
+  --color-ivory: #fff8f2;
+  --color-rose: #d58a9c;
+  --color-raspberry: #e83f70;
+  --color-raspberry-deep: #c42e5c;
+  --color-bordeaux: #4b1429;
+  --color-bordeaux-soft: #5a1a33;
+  --color-plum: #2c1722;
+  --color-mauve: #704052;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-cream);
+  color: var(--color-plum);
+  font-family: var(--font-sans);
+}
+
+.plum-soft {
+  color: rgba(44, 23, 34, 0.62);
+}
+
+.ivory-soft {
+  color: rgba(255, 248, 242, 0.68);
+}
+
+.input-field {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--color-plum) 18%, transparent);
+  background: transparent;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  color: var(--color-plum);
+}
+.input-field::placeholder {
+  color: color-mix(in srgb, var(--color-plum) 42%, transparent);
+}
+.input-field:focus {
+  outline: none;
+  border-color: var(--color-plum);
+}
