@@ -9,8 +9,10 @@ import { BRAND } from '../brand'
   reverses it; after the last slide the page scrolls on normally.
 
   Desktop: each slide is the 1344 × 768 mock-up scaled by --s (see index.css),
-  sliding under the top band + header. Below lg the frame fills the screen
-  under the header and the text sits on the photo over a dark gradient.
+  sliding under the (transparent) header; the frame fills the screen and the wide
+  images carry extra wall below the mock-up for windows taller than 7:4.
+  Below lg the frame fills the screen and the text sits on the photo over a
+  dark gradient.
 */
 
 type Slide = {
@@ -137,11 +139,11 @@ export function Hero() {
     <section
       id="top"
       ref={sectionRef}
-      aria-label="Les collections Lucea"
-      className="relative [--hero-h:calc(100svh-60px)] [--hero-step:85svh] lg:-mt-[calc(var(--strip-h)+var(--header-h))] lg:[--hero-h:calc(768*var(--s))]"
+      aria-label={`Les collections ${BRAND}`}
+      className="relative -mt-[var(--header-h)] [--hero-h:100svh] [--hero-step:85svh] lg:[--hero-h:max(calc(768*var(--s)),100svh)]"
       style={{ height: `calc(var(--hero-h) + ${count - 1} * var(--hero-step))` }}
     >
-      <div ref={frameRef} className="sticky top-[60px] h-[var(--hero-h)] overflow-hidden bg-wine lg:top-0">
+      <div ref={frameRef} className="sticky top-0 h-[var(--hero-h)] overflow-hidden bg-wine">
         {slides.map((slide, i) => {
           const Title = i === 0 ? 'h1' : 'h2'
           const isCurrent = i === current
@@ -158,7 +160,7 @@ export function Hero() {
             >
               <div className={`absolute inset-0 ${i === 0 ? 'hero-kenburns' : ''}`}>
                 <picture>
-                  <source media="(min-width: 1024px)" srcSet={`/hero/${slide.image}-wide.webp`} width={3520} height={1097} />
+                  <source media="(min-width: 1024px)" srcSet={`/hero/${slide.image}-wide.webp`} width={3520} height={1597} />
                   <img
                     src={`/hero/${slide.image}.webp`}
                     alt={slide.alt}
@@ -166,7 +168,7 @@ export function Hero() {
                     height={1097}
                     fetchPriority={i === 0 ? 'high' : 'low'}
                     decoding="async"
-                    className="absolute inset-0 h-full w-full object-cover object-[76%_30%] sm:object-[62%_40%] lg:left-1/2 lg:right-auto lg:w-auto lg:max-w-none lg:-translate-x-1/2"
+                    className="absolute inset-0 h-full w-full object-cover object-[76%_30%] sm:object-[62%_40%] lg:bottom-auto lg:left-1/2 lg:right-auto lg:h-[calc(1118*var(--s))] lg:w-auto lg:max-w-none lg:-translate-x-1/2"
                   />
                 </picture>
               </div>

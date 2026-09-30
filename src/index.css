@@ -3,12 +3,11 @@
 @theme {
   --font-display: "Bodoni Moda", "Bodoni 72", Didot, Georgia, serif;
   --font-script: "Monsieur La Doulaise", cursive;
-  --font-logo: "Playfair Display", Georgia, serif;
   --font-title: "Noto Serif", Georgia, serif;
   --font-ui: "Roboto", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
 
-  /* Lucea palette (lucea-palette.css) */
+  /* Lucéa palette (lucea-palette.css) */
   /* backgrounds */
   --color-page: #fbf6f1; /* main background */
   --color-surface: #fffcf9; /* cards, products, fields */
@@ -32,12 +31,11 @@
 /*
   The desktop header + hero are drawn on the 1344 × 768 reference mock-up:
   `calc(N * var(--s))` = N px of the mock-up. --s makes the whole mock-up
-  (band + header + hero) fit the window, within sane width-based bounds.
+  fit the window, within sane width-based bounds.
 */
 :root {
   --s: 1px;
-  --strip-h: 0px;
-  --header-h: 60px;
+  --header-h: 50px;
 }
 
 @media (min-width: 1024px) {
@@ -47,8 +45,7 @@
       calc(100svh / 768),
       calc(min(100vw, 1920px) / 1344)
     );
-    --strip-h: calc(24 * var(--s));
-    --header-h: calc(54 * var(--s));
+    --header-h: 52px;
   }
 }
 

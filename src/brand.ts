@@ -1,1 +1,1 @@
-export const BRAND = 'Lucea'
+export const BRAND = 'Lucéa'
