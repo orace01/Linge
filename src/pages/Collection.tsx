@@ -40,37 +40,37 @@ export function Collection() {
 
   return (
     <div>
-      <div className="bg-ivory px-5 py-14 text-center lg:py-20">
-        <span className="text-[11px] uppercase tracking-[0.16em] text-raspberry">Collections</span>
-        <h1 className="mt-3 font-display text-4xl text-plum sm:text-5xl">{activeCategory?.name ?? 'La boutique'}</h1>
-        <p className="mx-auto mt-4 max-w-md text-sm font-light leading-relaxed plum-soft">
+      <div className="bg-surface-soft px-5 py-14 text-center lg:py-20">
+        <span className="text-[11px] uppercase tracking-[0.16em] text-wine">Collections</span>
+        <h1 className="mt-3 font-display text-4xl text-ink sm:text-5xl">{activeCategory?.name ?? 'La boutique'}</h1>
+        <p className="mx-auto mt-4 max-w-md text-sm font-light leading-relaxed text-ink">
           Une sélection de pièces pensées pour épouser chaque silhouette, du quotidien aux occasions.
         </p>
       </div>
 
       <div className="mx-auto max-w-[1400px] px-5 py-10 lg:px-10">
-        <div className="flex items-center justify-between border-b border-plum/10 pb-5">
+        <div className="flex items-center justify-between border-b border-border pb-5">
           <button
             onClick={() => setFiltersOpen((v) => !v)}
-            className="flex items-center gap-2 text-xs uppercase tracking-widest text-plum"
+            className="flex items-center gap-2 text-xs uppercase tracking-widest text-ink"
           >
             Filtres
             <ChevronDownIcon className={`h-3 w-3 transition ${filtersOpen ? 'rotate-180' : ''}`} />
           </button>
-          <p className="text-xs plum-soft">{filtered.length} pièce{filtered.length > 1 ? 's' : ''}</p>
+          <p className="text-xs text-ink-muted">{filtered.length} pièce{filtered.length > 1 ? 's' : ''}</p>
         </div>
 
         {filtersOpen && (
-          <div className="flex flex-wrap gap-8 border-b border-plum/10 py-6">
+          <div className="flex flex-wrap gap-8 border-b border-border py-6">
             <div>
-              <p className="mb-2.5 text-[11px] uppercase tracking-widest plum-soft">Taille</p>
+              <p className="mb-2.5 text-[11px] uppercase tracking-widest text-ink-muted">Taille</p>
               <div className="flex flex-wrap gap-2">
                 {allSizes.map((s) => (
                   <button
                     key={s}
                     onClick={() => setSize(size === s ? null : s)}
                     className={`h-9 w-9 rounded-full text-xs transition ${
-                      size === s ? 'bg-plum text-ivory' : 'border border-plum/20 text-plum'
+                      size === s ? 'bg-wine text-surface' : 'border border-border text-ink hover:border-wine'
                     }`}
                   >
                     {s}
@@ -80,14 +80,14 @@ export function Collection() {
             </div>
 
             <div>
-              <p className="mb-2.5 text-[11px] uppercase tracking-widest plum-soft">Couleur</p>
+              <p className="mb-2.5 text-[11px] uppercase tracking-widest text-ink-muted">Couleur</p>
               <div className="flex flex-wrap gap-2">
                 {allColors.map((c) => (
                   <button
                     key={c}
                     onClick={() => setColor(color === c ? null : c)}
                     className={`rounded-full px-4 py-2 text-xs transition ${
-                      color === c ? 'bg-plum text-ivory' : 'border border-plum/20 text-plum'
+                      color === c ? 'bg-wine text-surface' : 'border border-border text-ink hover:border-wine'
                     }`}
                   >
                     {c}
@@ -97,14 +97,14 @@ export function Collection() {
             </div>
 
             <div>
-              <p className="mb-2.5 text-[11px] uppercase tracking-widest plum-soft">Coupe</p>
+              <p className="mb-2.5 text-[11px] uppercase tracking-widest text-ink-muted">Coupe</p>
               <div className="flex flex-wrap gap-2">
                 {allCuts.map((c) => (
                   <button
                     key={c}
                     onClick={() => setCut(cut === c ? null : c)}
                     className={`rounded-full px-4 py-2 text-xs transition ${
-                      cut === c ? 'bg-plum text-ivory' : 'border border-plum/20 text-plum'
+                      cut === c ? 'bg-wine text-surface' : 'border border-border text-ink hover:border-wine'
                     }`}
                   >
                     {c}
@@ -114,11 +114,11 @@ export function Collection() {
             </div>
 
             <div>
-              <p className="mb-2.5 text-[11px] uppercase tracking-widest plum-soft">Disponibilité</p>
+              <p className="mb-2.5 text-[11px] uppercase tracking-widest text-ink-muted">Disponibilité</p>
               <button
                 onClick={() => setInStockOnly((v) => !v)}
                 className={`rounded-full px-4 py-2 text-xs transition ${
-                  inStockOnly ? 'bg-plum text-ivory' : 'border border-plum/20 text-plum'
+                  inStockOnly ? 'bg-wine text-surface' : 'border border-border text-ink hover:border-wine'
                 }`}
               >
                 En stock uniquement
@@ -126,7 +126,7 @@ export function Collection() {
             </div>
 
             {(size || color || cut || inStockOnly) && (
-              <button onClick={resetFilters} className="self-end text-xs uppercase tracking-widest text-raspberry">
+              <button onClick={resetFilters} className="self-end text-xs uppercase tracking-widest text-wine">
                 Réinitialiser
               </button>
             )}
@@ -140,7 +140,7 @@ export function Collection() {
         </div>
 
         {filtered.length === 0 && (
-          <p className="mt-16 text-center text-sm plum-soft">Aucune pièce ne correspond à ces filtres.</p>
+          <p className="mt-16 text-center text-sm text-ink-muted">Aucune pièce ne correspond à ces filtres.</p>
         )}
       </div>
     </div>

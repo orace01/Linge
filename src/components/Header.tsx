@@ -24,23 +24,21 @@ export function Header() {
 
   return (
     <>
-      {/* thin band above the header (desktop): the hero shows through it on the home page */}
-      <div aria-hidden="true" className={`hidden h-[var(--strip-h)] lg:block ${isHome ? '' : 'bg-[#8a2d2a]'}`} />
+      {/* thin band above the header (desktop): the hero photo shows through it on the home page */}
+      <div aria-hidden="true" className={`hidden h-[var(--strip-h)] lg:block ${isHome ? '' : 'bg-wine'}`} />
 
       <header
-        className={`sticky top-0 z-40 h-[60px] bg-parchment lg:h-[var(--header-h)] ${
-          isHome ? '' : 'border-b border-aubergine/10'
-        }`}
+        className="sticky top-0 z-40 h-[60px] border-b border-border bg-page lg:h-[var(--header-h)]"
       >
         <div className="mx-auto flex h-full items-center justify-between px-5 lg:grid lg:w-[min(100%,calc(1344*var(--s)))] lg:grid-cols-[1fr_auto_1fr] lg:pl-[calc(101*var(--s))] lg:pr-[calc(116.6*var(--s))]">
           {/* left: mobile menu + logo */}
           <div className="flex items-center gap-4">
-            <button className="text-aubergine lg:hidden" onClick={() => setMobileOpen(true)} aria-label="Ouvrir le menu">
+            <button className="text-ink lg:hidden" onClick={() => setMobileOpen(true)} aria-label="Ouvrir le menu">
               <MenuIcon size={24} />
             </button>
             <Link
               to="/"
-              className="font-logo text-[27px] font-bold uppercase leading-none tracking-[0.02em] text-aubergine lg:-translate-y-[calc(2.5*var(--s))] lg:text-[length:calc(41*var(--s))]"
+              className="font-logo text-[27px] font-bold uppercase leading-none tracking-[0.02em] text-wine lg:-translate-y-[calc(2.5*var(--s))] lg:text-[length:calc(41*var(--s))]"
             >
               {BRAND}
             </Link>
@@ -52,7 +50,7 @@ export function Header() {
               <NavLink
                 key={link.label}
                 to={link.to}
-                className="font-ui text-[length:calc(15.5*var(--s))] font-medium uppercase leading-none tracking-[0.02em] text-[#3a1520] transition hover:text-aubergine/70"
+                className="font-ui text-[length:calc(15.5*var(--s))] font-medium uppercase leading-none tracking-[0.02em] text-ink transition hover:text-wine"
               >
                 {link.label}
               </NavLink>
@@ -60,14 +58,14 @@ export function Header() {
           </nav>
 
           {/* right: search + bag */}
-          <div className="flex items-center justify-end gap-5 text-aubergine lg:gap-[calc(24*var(--s))]">
-            <button aria-label="Rechercher" onClick={() => setSearchOpen(true)} className="transition hover:opacity-70">
+          <div className="flex items-center justify-end gap-5 text-ink lg:gap-[calc(24*var(--s))]">
+            <button aria-label="Rechercher" onClick={() => setSearchOpen(true)} className="transition hover:text-wine">
               <SearchIcon size={24} stroke={2} className="lg:h-[calc(27*var(--s))] lg:w-[calc(27*var(--s))]" />
             </button>
-            <button aria-label="Voir le panier" onClick={openMiniCart} className="relative transition hover:opacity-70">
+            <button aria-label="Voir le panier" onClick={openMiniCart} className="relative transition hover:text-wine">
               <BagIcon size={24} stroke={2} className="lg:h-[calc(27*var(--s))] lg:w-[calc(27*var(--s))]" />
               {totalItems > 0 && (
-                <span className="absolute -right-2 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-aubergine px-1 font-ui text-[9px] text-parchment">
+                <span className="absolute -right-2 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-wine px-1 font-ui text-[9px] text-surface">
                   {totalItems}
                 </span>
               )}
@@ -77,10 +75,10 @@ export function Header() {
       </header>
 
       {mobileOpen && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-parchment">
-          <div className="flex h-[60px] items-center justify-between border-b border-aubergine/10 px-5">
-            <span className="font-logo text-[27px] font-bold uppercase leading-none tracking-[0.01em] text-aubergine">{BRAND}</span>
-            <button onClick={() => setMobileOpen(false)} aria-label="Fermer le menu" className="text-aubergine">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-page">
+          <div className="flex h-[60px] items-center justify-between border-b border-border px-5">
+            <span className="font-logo text-[27px] font-bold uppercase leading-none tracking-[0.02em] text-wine">{BRAND}</span>
+            <button onClick={() => setMobileOpen(false)} aria-label="Fermer le menu" className="text-ink">
               <CloseIcon size={24} />
             </button>
           </div>
@@ -90,7 +88,7 @@ export function Header() {
                 key={link.label}
                 to={link.to}
                 onClick={() => setMobileOpen(false)}
-                className="border-b border-aubergine/10 py-4 font-ui text-sm font-medium uppercase tracking-[0.06em] text-aubergine"
+                className="border-b border-border py-4 font-ui text-sm font-medium uppercase tracking-[0.06em] text-ink"
               >
                 {link.label}
               </Link>
@@ -98,7 +96,7 @@ export function Header() {
             <Link
               to="/compte"
               onClick={() => setMobileOpen(false)}
-              className="mt-6 flex items-center gap-3 py-3 font-ui text-sm text-aubergine"
+              className="mt-6 flex items-center gap-3 py-3 font-ui text-sm text-ink"
             >
               <AccountIcon size={20} />
               Mon compte
@@ -106,7 +104,7 @@ export function Header() {
             <Link
               to="/favoris"
               onClick={() => setMobileOpen(false)}
-              className="flex items-center gap-3 py-3 font-ui text-sm text-aubergine"
+              className="flex items-center gap-3 py-3 font-ui text-sm text-ink"
             >
               <HeartIcon size={20} filled={favorites.length > 0} />
               Mes favoris{favorites.length > 0 && ` (${favorites.length})`}

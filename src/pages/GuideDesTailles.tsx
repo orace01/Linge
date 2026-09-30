@@ -9,9 +9,9 @@ export function GuideDesTailles() {
   return (
     <div className="mx-auto max-w-[700px] px-5 py-16 lg:py-24">
       <div className="text-center">
-        <span className="text-[11px] uppercase tracking-[0.16em] text-raspberry">Guide</span>
-        <h1 className="mt-3 font-display text-4xl text-plum sm:text-5xl">Guide des tailles</h1>
-        <p className="mx-auto mt-5 max-w-md text-sm font-light leading-relaxed plum-soft">
+        <span className="text-[11px] uppercase tracking-[0.16em] text-wine">Guide</span>
+        <h1 className="mt-3 font-display text-4xl text-ink sm:text-5xl">Guide des tailles</h1>
+        <p className="mx-auto mt-5 max-w-md text-sm font-light leading-relaxed text-ink-muted">
           Un repère indicatif pour vous aider à choisir votre taille. En cas de doute entre deux tailles, privilégiez
           la taille au-dessus.
         </p>
@@ -19,18 +19,18 @@ export function GuideDesTailles() {
 
       <table className="mt-12 w-full border-collapse overflow-hidden rounded-2xl text-sm">
         <thead>
-          <tr className="bg-ivory text-left">
-            <th className="px-4 py-3 text-[11px] uppercase tracking-wide text-plum">Taille</th>
-            <th className="px-4 py-3 text-[11px] uppercase tracking-wide text-plum">Tour de taille</th>
-            <th className="px-4 py-3 text-[11px] uppercase tracking-wide text-plum">Tour de poitrine</th>
+          <tr className="bg-surface-soft text-left">
+            <th className="px-4 py-3 text-[11px] uppercase tracking-wide text-ink">Taille</th>
+            <th className="px-4 py-3 text-[11px] uppercase tracking-wide text-ink">Tour de taille</th>
+            <th className="px-4 py-3 text-[11px] uppercase tracking-wide text-ink">Tour de poitrine</th>
           </tr>
         </thead>
         <tbody>
           {rows.map((r) => (
-            <tr key={r.size} className="border-b border-plum/8">
-              <td className="px-4 py-3 font-display text-plum">{r.size}</td>
-              <td className="px-4 py-3 plum-soft">{r.tour}</td>
-              <td className="px-4 py-3 plum-soft">{r.poitrine}</td>
+            <tr key={r.size} className="border-b border-border">
+              <td className="px-4 py-3 font-display text-ink">{r.size}</td>
+              <td className="px-4 py-3 text-ink-muted">{r.tour}</td>
+              <td className="px-4 py-3 text-ink-muted">{r.poitrine}</td>
             </tr>
           ))}
         </tbody>

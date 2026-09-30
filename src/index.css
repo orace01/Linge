@@ -7,17 +7,25 @@
   --font-ui: "Roboto", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
 
-  --color-parchment: #fdf3d2;
-  --color-aubergine: #481838;
-  --color-cream: #f4e5dc;
-  --color-ivory: #fff8f2;
-  --color-rose: #d58a9c;
-  --color-raspberry: #e83f70;
-  --color-raspberry-deep: #c42e5c;
-  --color-bordeaux: #4b1429;
-  --color-bordeaux-soft: #5a1a33;
-  --color-plum: #2c1722;
-  --color-mauve: #704052;
+  /* Lucea palette (lucea-palette.css) */
+  /* backgrounds */
+  --color-page: #fbf6f1; /* main background */
+  --color-surface: #fffcf9; /* cards, products, fields */
+  --color-surface-soft: #f1e4de; /* alternate sections, inserts */
+  /* text */
+  --color-ink: #33222b; /* headings and body text */
+  --color-ink-muted: #75666d; /* descriptions, help, metadata */
+  /* identity */
+  --color-wine: #55243a; /* primary actions, links, logo */
+  --color-wine-hover: #3e192b;
+  --color-rose: #c27a85; /* decorative accent only, never small white text on it */
+  --color-rose-soft: #ebd4d4; /* badge / insert background, with wine or ink text */
+  --color-champagne: #b99a72; /* occasional detail: rule, small icon */
+  /* structure and states */
+  --color-border: #e4d6d1;
+  --color-focus: #8b5d39;
+  --color-success: #55735d;
+  --color-error: #a44750;
 }
 
 /*
@@ -49,32 +57,30 @@ html {
 
 body {
   margin: 0;
-  background-color: var(--color-cream);
-  color: var(--color-plum);
+  background-color: var(--color-page);
+  color: var(--color-ink);
   font-family: var(--font-sans);
 }
 
-.plum-soft {
-  color: rgba(44, 23, 34, 0.62);
-}
-
-.ivory-soft {
-  color: rgba(255, 248, 242, 0.68);
+:where(a, button, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
 }
 
 .input-field {
   width: 100%;
   border-radius: 0.75rem;
-  border: 1px solid color-mix(in srgb, var(--color-plum) 18%, transparent);
-  background: transparent;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
   padding: 0.75rem 1rem;
   font-size: 0.875rem;
-  color: var(--color-plum);
+  color: var(--color-ink);
 }
 .input-field::placeholder {
-  color: color-mix(in srgb, var(--color-plum) 42%, transparent);
+  color: var(--color-ink-muted);
 }
 .input-field:focus {
   outline: none;
-  border-color: var(--color-plum);
+  border-color: var(--color-focus);
+  box-shadow: 0 0 0 1px var(--color-focus);
 }

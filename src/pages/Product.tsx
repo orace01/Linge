@@ -30,52 +30,54 @@ export function Product() {
 
   return (
     <div className="mx-auto max-w-[1400px] px-5 py-10 lg:px-10 lg:py-14">
-      <div className="mb-6 text-xs plum-soft lg:mb-8">
-        <Link to="/" className="hover:text-plum">Accueil</Link>
+      <div className="mb-6 text-xs text-ink-muted lg:mb-8">
+        <Link to="/" className="hover:text-ink">Accueil</Link>
         &nbsp;/&nbsp;
-        <Link to="/boutique" className="hover:text-plum">Boutique</Link>
+        <Link to="/boutique" className="hover:text-ink">Boutique</Link>
         &nbsp;/&nbsp;
-        <span className="text-plum">{product.name}</span>
+        <span className="text-ink">{product.name}</span>
       </div>
 
       <div className="flex flex-col gap-10 lg:flex-row lg:gap-16">
         {/* gallery */}
         <div className="lg:w-[560px] lg:flex-shrink-0">
-          <EmptyFrame ratio="4 / 5" tone="light" className="w-full" rounded="rounded-3xl" />
+          <EmptyFrame ratio="4 / 5" className="w-full" rounded="rounded-3xl" />
           <div className="mt-4 flex gap-4">
             {[0, 1, 2].map((i) => (
-              <EmptyFrame key={i} ratio="3 / 4" tone="light" className="w-20" label={null} />
+              <EmptyFrame key={i} ratio="3 / 4" className="w-20" label={null} />
             ))}
           </div>
         </div>
 
         {/* info */}
         <div className="lg:flex-1">
-          <span className="text-xs uppercase tracking-[0.16em] text-raspberry">{product.category}</span>
+          <span className="text-xs uppercase tracking-[0.16em] text-wine">{product.category}</span>
           <div className="mt-3 flex items-start justify-between gap-4">
-            <h1 className="font-display text-4xl text-plum sm:text-5xl">{product.name}</h1>
+            <h1 className="font-display text-4xl text-ink sm:text-5xl">{product.name}</h1>
             <button
               onClick={() => toggleFavorite(product.slug)}
               aria-label="Ajouter aux favoris"
-              className="mt-2 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-plum/15 text-plum"
+              className={`mt-2 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border transition hover:text-wine ${
+                fav ? 'text-wine' : 'text-ink'
+              }`}
             >
               <HeartIcon className="h-4 w-4" filled={fav} />
             </button>
           </div>
-          <p className="mt-4 text-xl text-plum">{product.price}&nbsp;€</p>
-          <p className="mt-6 max-w-lg text-sm font-light leading-relaxed plum-soft">
+          <p className="mt-4 text-xl text-ink">{product.price}&nbsp;€</p>
+          <p className="mt-6 max-w-lg text-sm font-light leading-relaxed text-ink-muted">
             Coupe {product.cut.toLowerCase()}, pensée pour un maintien confortable et une silhouette sculptée.
           </p>
 
           <div className="mt-8">
-            <span className="text-[11px] uppercase tracking-[0.1em] plum-soft">Couleur — {color}</span>
+            <span className="text-[11px] uppercase tracking-[0.1em] text-ink-muted">Couleur — {color}</span>
             <div className="mt-2.5 flex flex-wrap gap-2.5">
               {product.colors.map((c) => (
                 <button
                   key={c}
                   onClick={() => setColor(c)}
                   className={`rounded-full border px-4 py-2 text-xs transition ${
-                    c === color ? 'border-plum bg-plum text-ivory' : 'border-plum/20 text-plum'
+                    c === color ? 'border-wine bg-wine text-surface' : 'border-border text-ink hover:border-wine'
                   }`}
                 >
                   {c}
@@ -86,8 +88,8 @@ export function Product() {
 
           <div className="mt-7">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] uppercase tracking-[0.1em] plum-soft">Taille</span>
-              <Link to="/guide-des-tailles" className="text-[11px] uppercase tracking-[0.1em] text-raspberry underline">
+              <span className="text-[11px] uppercase tracking-[0.1em] text-ink-muted">Taille</span>
+              <Link to="/guide-des-tailles" className="text-[11px] uppercase tracking-[0.1em] text-wine underline">
                 Guide des tailles
               </Link>
             </div>
@@ -97,7 +99,7 @@ export function Product() {
                   key={s}
                   onClick={() => setSize(s)}
                   className={`flex h-11 w-11 items-center justify-center rounded-full text-sm transition ${
-                    s === size ? 'bg-plum text-ivory' : 'border border-plum/20 text-plum'
+                    s === size ? 'bg-wine text-surface' : 'border border-border text-ink hover:border-wine'
                   }`}
                 >
                   {s}
@@ -106,33 +108,33 @@ export function Product() {
             </div>
           </div>
 
-          <p className="mt-6 text-xs text-plum/70">
+          <p className={`mt-6 text-xs ${product.inStock ? 'text-success' : 'text-error'}`}>
             {product.inStock ? '● En stock — expédition sous 48h' : '○ Rupture de stock temporaire'}
           </p>
 
           <button
             onClick={handleAdd}
             disabled={!product.inStock}
-            className="mt-5 w-full rounded-full bg-raspberry py-4 text-xs font-medium uppercase tracking-widest text-white transition hover:bg-raspberry-deep disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:px-12"
+            className="mt-5 w-full rounded-full bg-wine py-4 text-xs font-medium uppercase tracking-widest text-surface transition hover:bg-wine-hover disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:px-12"
           >
             {added ? 'Ajouté au panier ✓' : 'Ajouter au panier'}
           </button>
 
-          <div className="mt-10 space-y-6 border-t border-plum/10 pt-6">
+          <div className="mt-10 space-y-6 border-t border-border pt-6">
             <details className="group">
-              <summary className="flex cursor-pointer items-center justify-between text-xs uppercase tracking-[0.1em] text-plum">
+              <summary className="flex cursor-pointer items-center justify-between text-xs uppercase tracking-[0.1em] text-ink">
                 Composition et entretien
               </summary>
-              <p className="mt-3 text-sm font-light leading-relaxed plum-soft">
+              <p className="mt-3 text-sm font-light leading-relaxed text-ink-muted">
                 Matières sélectionnées pour leur douceur et leur tenue. Lavage à la main recommandé, à froid, sans
                 assouplissant.
               </p>
             </details>
             <details className="group">
-              <summary className="flex cursor-pointer items-center justify-between text-xs uppercase tracking-[0.1em] text-plum">
+              <summary className="flex cursor-pointer items-center justify-between text-xs uppercase tracking-[0.1em] text-ink">
                 Livraison et retours
               </summary>
-              <p className="mt-3 text-sm font-light leading-relaxed plum-soft">
+              <p className="mt-3 text-sm font-light leading-relaxed text-ink-muted">
                 Livraison offerte dès [montant] €. Retours gratuits sous 30 jours.
               </p>
             </details>
@@ -141,8 +143,8 @@ export function Product() {
       </div>
 
       {related.length > 0 && (
-        <div className="mt-16 border-t border-plum/10 pt-12 lg:mt-20">
-          <h2 className="mb-8 font-display text-2xl text-plum">Vous aimerez aussi</h2>
+        <div className="mt-16 border-t border-border pt-12 lg:mt-20">
+          <h2 className="mb-8 font-display text-2xl text-ink">Vous aimerez aussi</h2>
           <div className="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
             {related.map((p) => (
               <ProductCard key={p.id} product={p} />

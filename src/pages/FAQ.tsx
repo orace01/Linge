@@ -9,17 +9,17 @@ export function FAQ() {
   return (
     <div className="mx-auto max-w-[720px] px-5 py-16 lg:py-24">
       <div className="text-center">
-        <span className="text-[11px] uppercase tracking-[0.16em] text-raspberry">Aide</span>
-        <h1 className="mt-3 font-display text-4xl text-plum sm:text-5xl">Questions fréquentes</h1>
+        <span className="text-[11px] uppercase tracking-[0.16em] text-wine">Aide</span>
+        <h1 className="mt-3 font-display text-4xl text-ink sm:text-5xl">Questions fréquentes</h1>
       </div>
 
-      <div className="mt-12 divide-y divide-plum/10">
+      <div className="mt-12 divide-y divide-border">
         {faqs.map((f) => (
           <details key={f.q} className="group py-5">
-            <summary className="flex cursor-pointer items-center justify-between font-display text-lg text-plum">
+            <summary className="flex cursor-pointer items-center justify-between font-display text-lg text-ink">
               {f.q}
             </summary>
-            <p className="mt-3 text-sm font-light leading-relaxed plum-soft">{f.a}</p>
+            <p className="mt-3 text-sm font-light leading-relaxed text-ink-muted">{f.a}</p>
           </details>
         ))}
       </div>
