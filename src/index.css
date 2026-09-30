@@ -116,34 +116,6 @@ body {
     transform: none;
   }
 }
-@keyframes hero-in-next {
-  from {
-    transform: translateX(100%);
-  }
-}
-@keyframes hero-in-prev {
-  from {
-    transform: translateX(-100%);
-  }
-}
-@keyframes hero-out-next {
-  to {
-    transform: translateX(-100%);
-  }
-}
-@keyframes hero-out-prev {
-  to {
-    transform: translateX(100%);
-  }
-}
-@keyframes hero-progress {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
 .hero-rise {
   animation: lucea-rise 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   animation-delay: var(--rise-delay, 0ms);
@@ -151,32 +123,6 @@ body {
 .hero-kenburns {
   animation: lucea-kenburns 8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
-/* hero carousel slides (see Hero.tsx) */
-.hero-in-next,
-.hero-in-prev,
-.hero-out-next,
-.hero-out-prev {
-  animation-duration: 1.15s;
-  animation-timing-function: cubic-bezier(0.77, 0, 0.18, 1);
-  animation-fill-mode: both;
-}
-.hero-in-next {
-  animation-name: hero-in-next;
-}
-.hero-in-prev {
-  animation-name: hero-in-prev;
-}
-.hero-out-next {
-  animation-name: hero-out-next;
-}
-.hero-out-prev {
-  animation-name: hero-out-prev;
-}
-.hero-progress {
-  transform-origin: left;
-  animation: hero-progress var(--hero-duration, 6500ms) linear both;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .reveal,
   .reveal.is-visible {
@@ -185,12 +131,7 @@ body {
     transition: none;
   }
   .hero-rise,
-  .hero-kenburns,
-  .hero-in-next,
-  .hero-in-prev,
-  .hero-out-next,
-  .hero-out-prev,
-  .hero-progress {
+  .hero-kenburns {
     animation: none;
   }
 }

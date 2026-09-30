@@ -1,18 +1,16 @@
-import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import { BRAND } from '../brand'
-import { ChevronLeftIcon, ChevronRightIcon, PauseIcon, PlayIcon } from './icons'
 
 /*
-  Desktop: the hero slides under the top band + header and is exactly the
-  1344 × 768 mock-up scaled by --s (see index.css), so it always fits the
-  window. Each wide image carries extra wall on both sides for windows wider
-  than the mock-up. Below lg the photo and the text are stacked, the text on
-  the page background (the hero colours stay in the photos).
+  Scroll-driven hero. The section is taller than the screen and its inner
+  frame is sticky: while the frame is pinned, scrolling down brings each next
+  slide up over the previous one (which recedes slightly), scrolling up
+  reverses it; after the last slide the page scrolls on normally.
 
-  Carousel: slides are stacked in one grid cell; only the active slide and the
-  one leaving are visible, each moved by a CSS animation. Autoplay is driven by
-  the progress bar's animation, so pausing the bar pauses the carousel.
+  Desktop: each slide is the 1344 × 768 mock-up scaled by --s (see index.css),
+  sliding under the top band + header. Below lg the frame fills the screen
+  under the header and the text sits on the photo over a dark gradient.
 */
 
 type Slide = {
@@ -59,137 +57,134 @@ const slides: Slide[] = [
   },
 ]
 
-const SLIDE_MS = 6500
 const count = slides.length
 
-type Direction = 'next' | 'prev'
-
-function usePrefersReducedMotion() {
-  const [reduced, setReduced] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
-  useEffect(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const onChange = () => setReduced(mq.matches)
-    mq.addEventListener('change', onChange)
-    return () => mq.removeEventListener('change', onChange)
-  }, [])
-  return reduced
+/** 0 → 1 over the middle of a transition, so each slide holds a moment fully visible. */
+function ease(t: number) {
+  const x = Math.min(1, Math.max(0, (t - 0.12) / 0.76))
+  return x * x * (3 - 2 * x)
 }
 
 const rise = (ms: number) => ({ '--rise-delay': `${ms}ms` }) as CSSProperties
 
 export function Hero() {
-  const [state, setState] = useState<{ index: number; leaving: number | null; dir: Direction }>({
-    index: 0,
-    leaving: null,
-    dir: 'next',
-  })
-  const [paused, setPaused] = useState(false)
-  const [hovered, setHovered] = useState(false)
-  const [focused, setFocused] = useState(false)
-  const reduced = usePrefersReducedMotion()
-  const touchX = useRef<number | null>(null)
+  const sectionRef = useRef<HTMLElement>(null)
+  const frameRef = useRef<HTMLDivElement>(null)
+  const slideRefs = useRef<(HTMLDivElement | null)[]>([])
+  const shadeRefs = useRef<(HTMLDivElement | null)[]>([])
+  const [current, setCurrent] = useState(0)
 
-  const running = !paused && !hovered && !focused && !reduced
-  const { index, leaving, dir } = state
-
-  const goTo = (target: number, direction: Direction) => {
-    const next = (target + count) % count
-    setState((s) => (next === s.index ? s : { index: next, leaving: s.index, dir: direction }))
+  /** Where the pinned frame is in the section: how far it has travelled and how far it can. */
+  const measure = () => {
+    const section = sectionRef.current!
+    const frame = frameRef.current!
+    const scrollable = section.offsetHeight - frame.offsetHeight
+    const pinnedAt = parseFloat(getComputedStyle(frame).top) || 0
+    return { scrollable, progressed: pinnedAt - section.getBoundingClientRect().top }
   }
-  const next = () => goTo(index + 1, 'next')
-  const prev = () => goTo(index - 1, 'prev')
 
-  const onPointerDown = (e: PointerEvent) => {
-    if (e.pointerType === 'touch') touchX.current = e.clientX
-  }
-  const onPointerUp = (e: PointerEvent) => {
-    if (touchX.current === null) return
-    const dx = e.clientX - touchX.current
-    touchX.current = null
-    if (Math.abs(dx) > 50) {
-      if (dx < 0) next()
-      else prev()
+  useEffect(() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)')
+    let raf = 0
+
+    const update = () => {
+      raf = 0
+      const { scrollable, progressed } = measure()
+      const f = scrollable > 0 ? Math.min(1, Math.max(0, progressed / scrollable)) * (count - 1) : 0
+
+      for (let i = 0; i < count; i++) {
+        const slide = slideRefs.current[i]
+        const shade = shadeRefs.current[i]
+        if (!slide || !shade) continue
+        const move = i === 0 ? 1 : ease(f - (i - 1)) // how far this slide has come in
+        const covered = i < count - 1 ? ease(f - i) : 0 // how far the next one covers it
+        if (reduced.matches) {
+          slide.style.transform = ''
+          slide.style.opacity = String(move)
+        } else {
+          slide.style.opacity = ''
+          slide.style.transform = `translate3d(0, ${(1 - move) * 100}%, 0) scale(${1 - covered * 0.06})`
+        }
+        slide.style.visibility = move > 0 ? 'visible' : 'hidden'
+        shade.style.opacity = String(covered * 0.45)
+      }
+      setCurrent(Math.min(count - 1, Math.max(0, Math.round(f))))
     }
+
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update)
+    }
+    update()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    reduced.addEventListener('change', onScroll)
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+      reduced.removeEventListener('change', onScroll)
+    }
+  }, [])
+
+  /** Scroll the page to the position where slide `i` is fully shown. */
+  const showSlide = (i: number) => {
+    const { scrollable, progressed } = measure()
+    const target = (scrollable * i) / (count - 1)
+    window.scrollTo({ top: window.scrollY + target - progressed, behavior: 'smooth' })
   }
 
   return (
     <section
       id="top"
-      aria-roledescription="carrousel"
+      ref={sectionRef}
       aria-label="Les collections Lucea"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onFocus={(e) => {
-        // keyboard users get a still carousel; a mouse click on a control must not pause it
-        if (e.target.matches(':focus-visible')) setFocused(true)
-      }}
-      onBlur={(e) => {
-        if (!e.currentTarget.contains(e.relatedTarget)) setFocused(false)
-      }}
-      onKeyDown={(e) => {
-        if (e.key === 'ArrowRight') next()
-        if (e.key === 'ArrowLeft') prev()
-      }}
-      onPointerDown={onPointerDown}
-      onPointerUp={onPointerUp}
-      onPointerCancel={() => (touchX.current = null)}
-      className="relative touch-pan-y overflow-hidden bg-page lg:-mt-[calc(var(--strip-h)+var(--header-h))] lg:h-[calc(768*var(--s))] lg:bg-wine"
+      className="relative [--hero-h:calc(100svh-60px)] [--hero-step:85svh] lg:-mt-[calc(var(--strip-h)+var(--header-h))] lg:[--hero-h:calc(768*var(--s))]"
+      style={{ height: `calc(var(--hero-h) + ${count - 1} * var(--hero-step))` }}
     >
-      <div className="grid lg:h-full" aria-live={running ? 'off' : 'polite'}>
+      <div ref={frameRef} className="sticky top-[60px] h-[var(--hero-h)] overflow-hidden bg-wine lg:top-0">
         {slides.map((slide, i) => {
-          const active = i === index
-          const isLeaving = i === leaving
-          const shown = active || isLeaving
-          const motion = active ? (leaving !== null ? `hero-in-${dir}` : '') : isLeaving ? `hero-out-${dir}` : ''
           const Title = i === 0 ? 'h1' : 'h2'
+          const isCurrent = i === current
           return (
             <div
               key={slide.image}
-              role="group"
-              aria-roledescription="diapositive"
-              aria-label={`${i + 1} sur ${count}`}
-              aria-hidden={!active}
-              inert={!active}
-              onAnimationEnd={(e) => {
-                if (e.target === e.currentTarget && isLeaving) setState((s) => ({ ...s, leaving: null }))
+              ref={(el) => {
+                slideRefs.current[i] = el
               }}
-              className={`relative bg-page [grid-area:1/1] lg:h-full lg:bg-transparent ${active ? 'z-20' : 'z-10'} ${
-                shown ? '' : 'invisible'
-              } ${motion}`}
+              aria-hidden={!isCurrent}
+              inert={!isCurrent}
+              className="absolute inset-0 origin-top will-change-transform"
+              style={{ zIndex: i + 1, visibility: i === 0 ? 'visible' : 'hidden' }}
             >
-              <div className="relative aspect-[4/5] overflow-hidden sm:aspect-[16/10] lg:absolute lg:inset-0 lg:aspect-auto">
-                <div className={`absolute inset-0 ${shown ? 'hero-kenburns' : ''}`}>
-                  <picture>
-                    <source
-                      media="(min-width: 1024px)"
-                      srcSet={`/hero/${slide.image}-wide.webp`}
-                      width={3520}
-                      height={1097}
-                    />
-                    <img
-                      src={`/hero/${slide.image}.webp`}
-                      alt={slide.alt}
-                      width={1920}
-                      height={1097}
-                      fetchPriority={i === 0 ? 'high' : 'low'}
-                      decoding="async"
-                      className="absolute inset-0 h-full w-full object-cover object-[78%_50%] sm:object-[60%_50%] lg:left-1/2 lg:right-auto lg:w-auto lg:max-w-none lg:-translate-x-1/2"
-                    />
-                  </picture>
-                </div>
+              <div className={`absolute inset-0 ${i === 0 ? 'hero-kenburns' : ''}`}>
+                <picture>
+                  <source media="(min-width: 1024px)" srcSet={`/hero/${slide.image}-wide.webp`} width={3520} height={1097} />
+                  <img
+                    src={`/hero/${slide.image}.webp`}
+                    alt={slide.alt}
+                    width={1920}
+                    height={1097}
+                    fetchPriority={i === 0 ? 'high' : 'low'}
+                    decoding="async"
+                    className="absolute inset-0 h-full w-full object-cover object-[76%_30%] sm:object-[62%_40%] lg:left-1/2 lg:right-auto lg:w-auto lg:max-w-none lg:-translate-x-1/2"
+                  />
+                </picture>
               </div>
 
-              <div className="relative lg:mx-auto lg:h-full lg:w-[min(100%,calc(1344*var(--s)))]">
-                <div className="px-5 pb-12 pt-8 lg:absolute lg:left-[calc(101*var(--s))] lg:top-[calc(306.8*var(--s))] lg:p-0">
+              {/* mobile: dark gradient under the text */}
+              <div className="absolute inset-x-0 bottom-0 h-[62%] bg-gradient-to-t from-ink/90 via-ink/45 to-transparent lg:hidden" />
+
+              <div className="absolute inset-0 lg:mx-auto lg:w-[min(100%,calc(1344*var(--s)))]">
+                <div className="absolute inset-x-0 bottom-0 px-5 pb-10 sm:px-10 lg:inset-x-auto lg:bottom-auto lg:left-[calc(101*var(--s))] lg:top-[calc(306.8*var(--s))] lg:p-0">
                   <p
                     style={rise(250)}
-                    className={`${shown ? 'hero-rise' : ''} font-ui text-[12px] uppercase leading-none tracking-[0.06em] text-wine lg:text-[length:calc(16.8*var(--s))] lg:text-surface lg:tracking-[0.03em]`}
+                    className={`${i === 0 ? 'hero-rise' : ''} font-ui text-[12px] uppercase leading-none tracking-[0.06em] text-surface/90 lg:text-[length:calc(16.8*var(--s))] lg:text-surface lg:tracking-[0.03em]`}
                   >
                     {BRAND} · {slide.eyebrow}
                   </p>
                   <Title
                     style={rise(400)}
-                    className={`${shown ? 'hero-rise' : ''} mt-4 font-title text-[36px] font-bold uppercase leading-[1.1] text-ink sm:text-[50px] lg:text-surface lg:mt-[calc(11.9*var(--s))] lg:text-[length:calc(50.5*var(--s))] lg:leading-[calc(59*var(--s))]`}
+                    className={`${i === 0 ? 'hero-rise' : ''} mt-3 font-title text-[34px] font-bold uppercase leading-[1.08] text-surface sm:text-[48px] lg:mt-[calc(11.9*var(--s))] lg:text-[length:calc(50.5*var(--s))] lg:leading-[calc(59*var(--s))]`}
                   >
                     {slide.title[0]}
                     <br />
@@ -197,78 +192,57 @@ export function Hero() {
                   </Title>
                   <p
                     style={rise(560)}
-                    className={`${shown ? 'hero-rise' : ''} mt-4 font-ui text-[17px] leading-snug text-ink-muted sm:text-[20px] lg:text-surface lg:mt-[calc(19.6*var(--s))] lg:text-[length:calc(22.5*var(--s))] lg:leading-none`}
+                    className={`${i === 0 ? 'hero-rise' : ''} mt-3 max-w-md font-ui text-[16px] leading-snug text-surface/90 sm:text-[19px] lg:mt-[calc(19.6*var(--s))] lg:max-w-none lg:text-[length:calc(22.5*var(--s))] lg:leading-none lg:text-surface`}
                   >
                     {slide.text}
                   </p>
                   <Link
                     to={slide.cta.to}
                     style={rise(720)}
-                    className={`${shown ? 'hero-rise' : ''} mt-7 inline-flex h-12 items-center rounded-[6px] bg-wine px-6 font-ui text-[14px] font-medium uppercase leading-none text-surface transition hover:bg-wine-hover lg:mt-[calc(31.4*var(--s))] lg:h-[calc(50.5*var(--s))] lg:rounded-[calc(6*var(--s))] lg:px-[calc(20*var(--s))] lg:text-[length:calc(19.5*var(--s))]`}
+                    className={`${i === 0 ? 'hero-rise' : ''} mt-6 inline-flex h-12 items-center rounded-[6px] bg-wine px-6 font-ui text-[14px] font-medium uppercase leading-none text-surface transition hover:bg-wine-hover lg:mt-[calc(31.4*var(--s))] lg:h-[calc(50.5*var(--s))] lg:rounded-[calc(6*var(--s))] lg:px-[calc(20*var(--s))] lg:text-[length:calc(19.5*var(--s))]`}
                   >
                     {slide.cta.label}
                   </Link>
                 </div>
               </div>
+
+              {/* darkens this slide while the next one covers it */}
+              <div
+                ref={(el) => {
+                  shadeRefs.current[i] = el
+                }}
+                className="pointer-events-none absolute inset-0 bg-black opacity-0"
+              />
             </div>
           )
         })}
-      </div>
 
-      {/* controls: over the photo's bottom edge on mobile, under the button on desktop */}
-      <div className="pointer-events-none absolute inset-x-0 top-[calc(125vw-4rem)] z-30 px-5 sm:top-[calc(62.5vw-4rem)] lg:inset-y-0 lg:top-0 lg:mx-auto lg:w-[min(100%,calc(1344*var(--s)))] lg:px-0">
-        <div className="pointer-events-auto inline-flex items-center gap-1 rounded-full bg-ink/45 p-1 text-surface backdrop-blur-md lg:absolute lg:left-[calc(101*var(--s))] lg:top-[calc(612*var(--s))] lg:gap-[calc(4*var(--s))] lg:p-[calc(4*var(--s))]">
-          <button
-            onClick={prev}
-            aria-label="Diapositive précédente"
-            className="flex h-8 w-8 items-center justify-center rounded-full transition hover:bg-surface/15 lg:h-[calc(34*var(--s))] lg:w-[calc(34*var(--s))]"
-          >
-            <ChevronLeftIcon size={18} stroke={2} />
-          </button>
-
-          <div className="flex items-center gap-1.5 px-1">
+        {/* position in the series */}
+        <div className="absolute inset-y-0 right-0 z-30 flex items-center pr-3 lg:right-[max(0px,calc((100%-1344*var(--s))/2))] lg:pr-[calc(40*var(--s))]">
+          <nav aria-label="Séries du hero" className="flex flex-col items-end gap-1">
             {slides.map((slide, i) => (
               <button
                 key={slide.image}
-                onClick={() => goTo(i, i > index ? 'next' : 'prev')}
-                aria-label={`Aller à la diapositive ${i + 1}`}
-                aria-current={i === index ? 'true' : undefined}
-                className="group flex h-8 items-center px-0.5 lg:h-[calc(34*var(--s))]"
+                onClick={() => showSlide(i)}
+                aria-label={`Afficher la série N° 0${i + 1}`}
+                aria-current={i === current ? 'true' : undefined}
+                className="group flex items-center gap-2 py-1.5 text-surface"
               >
-                <span className="relative block h-[3px] w-7 overflow-hidden rounded-full bg-surface/35 lg:w-[calc(34*var(--s))]">
-                  {i === index && (
-                    <span
-                      key={`${index}-${reduced}`}
-                      onAnimationEnd={next}
-                      style={
-                        {
-                          '--hero-duration': `${SLIDE_MS}ms`,
-                          animationPlayState: running ? 'running' : 'paused',
-                        } as CSSProperties
-                      }
-                      className={`absolute inset-0 rounded-full bg-surface ${reduced ? '' : 'hero-progress'}`}
-                    />
-                  )}
-                  {i !== index && <span className="absolute inset-0 rounded-full bg-surface/0 transition group-hover:bg-surface/40" />}
+                <span
+                  className={`font-display text-xs italic transition ${
+                    i === current ? 'opacity-100' : 'opacity-0 group-hover:opacity-70'
+                  }`}
+                >
+                  0{i + 1}
                 </span>
+                <span
+                  className={`block w-[2px] rounded-full bg-surface transition-all duration-500 ${
+                    i === current ? 'h-9 opacity-100' : 'h-4 opacity-45 group-hover:opacity-80'
+                  }`}
+                />
               </button>
             ))}
-          </div>
-
-          <button
-            onClick={next}
-            aria-label="Diapositive suivante"
-            className="flex h-8 w-8 items-center justify-center rounded-full transition hover:bg-surface/15 lg:h-[calc(34*var(--s))] lg:w-[calc(34*var(--s))]"
-          >
-            <ChevronRightIcon size={18} stroke={2} />
-          </button>
-          <button
-            onClick={() => setPaused((p) => !p)}
-            aria-label={paused ? 'Relancer le défilement' : 'Mettre le défilement en pause'}
-            className="flex h-8 w-8 items-center justify-center rounded-full transition hover:bg-surface/15 lg:h-[calc(34*var(--s))] lg:w-[calc(34*var(--s))]"
-          >
-            {paused ? <PlayIcon size={14} /> : <PauseIcon size={14} />}
-          </button>
+          </nav>
         </div>
       </div>
     </section>
