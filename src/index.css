@@ -2,9 +2,13 @@
 
 @theme {
   --font-display: "Fraunces", Georgia, serif;
-  --font-headline: "Bebas Neue", "Arial Narrow", sans-serif;
+  --font-logo: "Playfair Display", Georgia, serif;
+  --font-title: "Noto Serif", Georgia, serif;
+  --font-ui: "Roboto", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
 
+  --color-parchment: #fdf3d2;
+  --color-aubergine: #481838;
   --color-cream: #f4e5dc;
   --color-ivory: #fff8f2;
   --color-rose: #d58a9c;
@@ -14,6 +18,29 @@
   --color-bordeaux-soft: #5a1a33;
   --color-plum: #2c1722;
   --color-mauve: #704052;
+}
+
+/*
+  The desktop header + hero are drawn on the 1344 × 768 reference mock-up:
+  `calc(N * var(--s))` = N px of the mock-up. --s makes the whole mock-up
+  (band + header + hero) fit the window, within sane width-based bounds.
+*/
+:root {
+  --s: 1px;
+  --strip-h: 0px;
+  --header-h: 60px;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --s: clamp(
+      calc(0.72 * min(100vw, 1920px) / 1344),
+      calc(100svh / 768),
+      calc(min(100vw, 1920px) / 1344)
+    );
+    --strip-h: calc(24 * var(--s));
+    --header-h: calc(64 * var(--s));
+  }
 }
 
 html {

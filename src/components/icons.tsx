@@ -1,12 +1,12 @@
-type IconProps = { className?: string; size?: number }
+type IconProps = { className?: string; size?: number; stroke?: number }
 
 const base = 20
 
-export function SearchIcon({ className, size = base }: IconProps) {
+export function SearchIcon({ className, size = base, stroke = 1.6 }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
-      <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.6" />
-      <line x1="16.2" y1="16.2" x2="21" y2="21" stroke="currentColor" strokeWidth="1.6" />
+      <circle cx="10.5" cy="10.5" r="7" stroke="currentColor" strokeWidth={stroke} />
+      <line x1="15.6" y1="15.6" x2="21" y2="21" stroke="currentColor" strokeWidth={stroke} strokeLinecap="round" />
     </svg>
   )
 }
@@ -33,11 +33,16 @@ export function HeartIcon({ className, filled, size = base }: IconProps & { fill
   )
 }
 
-export function BagIcon({ className, size = base }: IconProps) {
+export function BagIcon({ className, size = base, stroke = 1.6 }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
-      <path d="M6 8h12l1 13H5L6 8Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
-      <path d="M9 8V6a3 3 0 0 1 6 0v2" stroke="currentColor" strokeWidth="1.6" />
+      <path
+        d="M4 8.5h16l-1.3 11.1a1.6 1.6 0 0 1-1.6 1.4H6.9a1.6 1.6 0 0 1-1.6-1.4L4 8.5Z"
+        stroke="currentColor"
+        strokeWidth={stroke}
+        strokeLinejoin="round"
+      />
+      <path d="M8.5 8.5V7a3.5 3.5 0 0 1 7 0v1.5" stroke="currentColor" strokeWidth={stroke} />
     </svg>
   )
 }

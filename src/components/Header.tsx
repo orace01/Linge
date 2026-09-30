@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
+import { BRAND } from '../brand'
 import { useCart } from '../context/CartContext'
 import { useFavorites } from '../context/FavoritesContext'
 import { SearchIcon, AccountIcon, HeartIcon, BagIcon, MenuIcon, CloseIcon } from './icons'
@@ -10,67 +11,63 @@ const navLinks = [
   { label: 'Soutiens-gorge', to: '/collection/soutiens-gorge' },
   { label: 'Culottes', to: '/collection/culottes' },
   { label: 'Ensembles', to: '/collection/ensembles' },
-  { label: 'Bodys', to: '/collection/bodys' },
   { label: 'Journal', to: '/journal' },
 ]
 
 export function Header() {
   const { totalItems, openMiniCart } = useCart()
   const { favorites } = useFavorites()
+  const { pathname } = useLocation()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
+  const isHome = pathname === '/'
 
   return (
     <>
-      <header className="sticky top-0 z-40 border-b border-plum/8 bg-cream/95 backdrop-blur-sm">
-        <div className="mx-auto grid max-w-[1400px] grid-cols-[auto_1fr_auto] items-center gap-4 px-5 py-4 lg:px-10">
+      {/* thin band above the header (desktop): the hero shows through it on the home page */}
+      <div aria-hidden="true" className={`hidden h-[var(--strip-h)] lg:block ${isHome ? '' : 'bg-[#8a2d2a]'}`} />
+
+      <header
+        className={`sticky top-0 z-40 h-[60px] bg-parchment lg:h-[var(--header-h)] ${
+          isHome ? '' : 'border-b border-aubergine/10'
+        }`}
+      >
+        <div className="mx-auto flex h-full items-center justify-between px-5 lg:grid lg:w-[min(100%,calc(1344*var(--s)))] lg:grid-cols-[1fr_auto_1fr] lg:pl-[calc(101*var(--s))] lg:pr-[calc(116.6*var(--s))]">
           {/* left: mobile menu + logo */}
           <div className="flex items-center gap-4">
-            <button className="text-plum lg:hidden" onClick={() => setMobileOpen(true)} aria-label="Ouvrir le menu">
-              <MenuIcon size={22} />
+            <button className="text-aubergine lg:hidden" onClick={() => setMobileOpen(true)} aria-label="Ouvrir le menu">
+              <MenuIcon size={24} />
             </button>
-            <Link to="/" className="font-display text-xl tracking-[0.1em] text-plum sm:text-2xl">
-              [NOM DE LA MARQUE]
+            <Link
+              to="/"
+              className="font-logo text-[27px] font-bold uppercase leading-none tracking-[0.02em] text-aubergine lg:-translate-y-[calc(2.5*var(--s))] lg:text-[length:calc(41*var(--s))]"
+            >
+              {BRAND}
             </Link>
           </div>
 
           {/* center: nav */}
-          <nav className="hidden items-center justify-center gap-6 lg:flex">
+          <nav aria-label="Navigation principale" className="hidden items-center gap-[calc(31*var(--s))] lg:flex">
             {navLinks.map((link) => (
               <NavLink
                 key={link.label}
                 to={link.to}
-                className={({ isActive }) =>
-                  `text-[11px] uppercase tracking-[0.14em] transition ${
-                    isActive ? 'text-plum' : 'text-plum/65 hover:text-plum'
-                  }`
-                }
+                className="font-ui text-[length:calc(15.5*var(--s))] font-medium uppercase leading-none tracking-[0.02em] text-[#3a1520] transition hover:text-aubergine/70"
               >
                 {link.label}
               </NavLink>
             ))}
           </nav>
 
-          {/* right: icons */}
-          <div className="flex items-center justify-end gap-4 text-plum sm:gap-5">
-            <button aria-label="Rechercher" onClick={() => setSearchOpen(true)} className="transition hover:text-raspberry">
-              <SearchIcon size={19} />
+          {/* right: search + bag */}
+          <div className="flex items-center justify-end gap-5 text-aubergine lg:gap-[calc(24*var(--s))]">
+            <button aria-label="Rechercher" onClick={() => setSearchOpen(true)} className="transition hover:opacity-70">
+              <SearchIcon size={24} stroke={2} className="lg:h-[calc(27*var(--s))] lg:w-[calc(27*var(--s))]" />
             </button>
-            <Link to="/compte" aria-label="Mon compte" className="hidden transition hover:text-raspberry sm:block">
-              <AccountIcon size={19} />
-            </Link>
-            <Link to="/favoris" aria-label="Mes favoris" className="relative transition hover:text-raspberry">
-              <HeartIcon size={19} filled={favorites.length > 0} />
-              {favorites.length > 0 && (
-                <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-raspberry text-[9px] text-ivory">
-                  {favorites.length}
-                </span>
-              )}
-            </Link>
-            <button aria-label="Voir le panier" onClick={openMiniCart} className="relative transition hover:text-raspberry">
-              <BagIcon size={19} />
+            <button aria-label="Voir le panier" onClick={openMiniCart} className="relative transition hover:opacity-70">
+              <BagIcon size={24} stroke={2} className="lg:h-[calc(27*var(--s))] lg:w-[calc(27*var(--s))]" />
               {totalItems > 0 && (
-                <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-raspberry text-[9px] text-ivory">
+                <span className="absolute -right-2 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-aubergine px-1 font-ui text-[9px] text-parchment">
                   {totalItems}
                 </span>
               )}
@@ -80,24 +77,40 @@ export function Header() {
       </header>
 
       {mobileOpen && (
-        <div className="fixed inset-0 z-50 bg-cream">
-          <div className="flex items-center justify-between border-b border-plum/8 px-5 py-5">
-            <span className="font-display text-xl tracking-[0.1em] text-plum">[NOM DE LA MARQUE]</span>
-            <button onClick={() => setMobileOpen(false)} aria-label="Fermer le menu" className="text-plum">
-              <CloseIcon size={22} />
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-parchment">
+          <div className="flex h-[60px] items-center justify-between border-b border-aubergine/10 px-5">
+            <span className="font-logo text-[27px] font-bold uppercase leading-none tracking-[0.01em] text-aubergine">{BRAND}</span>
+            <button onClick={() => setMobileOpen(false)} aria-label="Fermer le menu" className="text-aubergine">
+              <CloseIcon size={24} />
             </button>
           </div>
-          <nav className="flex flex-col gap-1 px-5 py-6">
+          <nav aria-label="Navigation mobile" className="flex flex-col px-5 py-6">
             {navLinks.map((link) => (
               <Link
                 key={link.label}
                 to={link.to}
                 onClick={() => setMobileOpen(false)}
-                className="border-b border-plum/8 py-4 text-sm uppercase tracking-[0.1em] text-plum"
+                className="border-b border-aubergine/10 py-4 font-ui text-sm font-medium uppercase tracking-[0.06em] text-aubergine"
               >
                 {link.label}
               </Link>
             ))}
+            <Link
+              to="/compte"
+              onClick={() => setMobileOpen(false)}
+              className="mt-6 flex items-center gap-3 py-3 font-ui text-sm text-aubergine"
+            >
+              <AccountIcon size={20} />
+              Mon compte
+            </Link>
+            <Link
+              to="/favoris"
+              onClick={() => setMobileOpen(false)}
+              className="flex items-center gap-3 py-3 font-ui text-sm text-aubergine"
+            >
+              <HeartIcon size={20} filled={favorites.length > 0} />
+              Mes favoris{favorites.length > 0 && ` (${favorites.length})`}
+            </Link>
           </nav>
         </div>
       )}

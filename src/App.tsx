@@ -2,7 +2,6 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import { CartProvider } from './context/CartContext'
 import { FavoritesProvider } from './context/FavoritesContext'
-import { AnnouncementBar } from './components/AnnouncementBar'
 import { Header } from './components/Header'
 import { Footer } from './components/Footer'
 import { MiniCartDrawer } from './components/MiniCartDrawer'
@@ -29,7 +28,6 @@ function App() {
     <CartProvider>
       <FavoritesProvider>
         <ScrollToTop />
-        <AnnouncementBar />
         <Header />
         <main>
           <Routes>

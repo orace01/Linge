@@ -1,100 +1,50 @@
 import { Link } from 'react-router-dom'
-import { ArrowRightIcon } from './icons'
+import { BRAND } from '../brand'
 
+/*
+  Desktop: the hero slides under the top band + header and is exactly the
+  1344 × 768 mock-up scaled by --s (see index.css), so it always fits the
+  window. The wide image carries extra wall on both sides for windows wider
+  than the mock-up. Below lg the photo and the text are stacked.
+*/
 export function Hero() {
   return (
-    <section className="w-full bg-cream" id="top">
-      {/* ===== desktop / tablet — layered composition ===== */}
-      <div className="relative hidden overflow-hidden lg:block" style={{ height: '90vh' }}>
-        {/* 1. decorative rose shape, centered */}
-        <div
-          className="absolute rounded-full bg-rose"
-          style={{ left: '50%', top: '52%', height: '80vh', aspectRatio: '1 / 1', transform: 'translate(-50%, -50%)' }}
-        />
-
-        {/* 2. photo — one side only, natural cutout silhouette, behind the title */}
-        <Link
-          to="/boutique"
-          aria-label="Découvrir la collection"
-          className="absolute z-[5] block"
-          style={{ right: '4%', bottom: 0, height: '92%' }}
-        >
+    <section
+      id="top"
+      className="relative overflow-hidden bg-[#852b28] lg:-mt-[calc(var(--strip-h)+var(--header-h))] lg:h-[calc(768*var(--s))]"
+    >
+      <div className="relative aspect-[4/5] sm:aspect-[16/10] lg:absolute lg:inset-0 lg:aspect-auto">
+        <picture>
+          <source media="(min-width: 1024px)" srcSet="/hero/lucea-hero-wide.webp" width={3520} height={1097} />
           <img
-            src="/hero/seconde-peau.png"
-            alt="Body Fleur de Nuit"
-            className="h-full w-auto object-contain"
-            style={{ filter: 'drop-shadow(0 30px 40px rgba(44,23,34,0.25))' }}
+            src="/hero/lucea-hero.webp"
+            alt="Mannequin en ensemble de dentelle noire et kimono en satin, devant une rose en papier géante"
+            width={1920}
+            height={1097}
+            fetchPriority="high"
+            className="absolute inset-0 h-full w-full object-cover object-[78%_50%] sm:object-[60%_50%] lg:left-1/2 lg:right-auto lg:w-auto lg:max-w-none lg:-translate-x-1/2"
           />
-        </Link>
-
-        {/* 3. title — centered, in front of the photo */}
-        <div className="absolute inset-0 z-10 flex items-center justify-center px-8">
-          <span className="whitespace-nowrap font-headline text-[clamp(110px,20vw,330px)] uppercase leading-none tracking-tighter text-plum scale-y-[1.25]">
-            Seconde Peau
-          </span>
-        </div>
-
-        {/* 4. corner text — grouped on the left, clear of the photo */}
-        <div className="absolute z-30 flex flex-col items-start gap-6" style={{ left: '6%', bottom: '7%', width: '30%' }}>
-          <p className="font-display text-2xl italic leading-snug text-plum">
-            « La lingerie comme une seconde peau »
-          </p>
-          <div className="flex flex-col items-start gap-4">
-            <p className="text-sm font-light leading-relaxed text-plum">
-              Des matières choisies avec soin et des coupes pensées pour épouser chaque silhouette.
-            </p>
-            <Link
-              to="/boutique"
-              className="flex items-center gap-2.5 rounded-full bg-raspberry px-6 py-3.5 text-[11px] font-medium uppercase tracking-widest text-white transition hover:bg-raspberry-deep"
-            >
-              Découvrir la collection
-              <ArrowRightIcon size={14} />
-            </Link>
-          </div>
-        </div>
+        </picture>
       </div>
 
-      {/* ===== mobile — stacked, no overlap ===== */}
-      <div className="px-5 pb-12 pt-10 lg:hidden">
-        <div className="flex flex-col items-center text-center">
-          <span className="font-headline text-[26vw] uppercase leading-[0.92] tracking-tighter text-plum scale-y-[1.25]">
-            Seconde
-          </span>
-          <span className="font-headline text-[26vw] uppercase leading-[0.92] tracking-tighter text-plum scale-y-[1.25]">
-            Peau
-          </span>
-        </div>
-
-        <div className="relative mt-6 flex justify-center" style={{ height: '48vh' }}>
-          <div
-            className="absolute rounded-full bg-rose"
-            style={{ left: '50%', top: '50%', height: '92%', aspectRatio: '1 / 1', transform: 'translate(-50%, -50%)' }}
-          />
-          <Link to="/boutique" aria-label="Découvrir la collection" className="relative z-[1] block h-full">
-            <img
-              src="/hero/seconde-peau.png"
-              alt="Body Fleur de Nuit"
-              className="h-full w-auto object-contain"
-              style={{ filter: 'drop-shadow(0 20px 26px rgba(44,23,34,0.25))' }}
-            />
-          </Link>
-        </div>
-
-        <p className="mt-10 text-center font-display text-xl italic leading-snug text-plum">
-          « La lingerie comme une seconde peau »
-        </p>
-
-        <p className="mt-5 text-center text-sm font-light leading-relaxed text-plum">
-          Des matières choisies avec soin et des coupes pensées pour épouser chaque silhouette.
-        </p>
-
-        <div className="mt-6 flex justify-center">
+      <div className="relative lg:mx-auto lg:h-full lg:w-[min(100%,calc(1344*var(--s)))]">
+        <div className="px-5 pb-12 pt-8 sm:px-10 lg:absolute lg:left-[calc(101*var(--s))] lg:top-[calc(306.8*var(--s))] lg:p-0">
+          <p className="font-ui text-[12px] uppercase leading-none tracking-[0.06em] text-[#fff2e6] lg:text-[length:calc(16.8*var(--s))] lg:tracking-[0.03em]">
+            {BRAND} · Série N° 01
+          </p>
+          <h1 className="mt-4 font-title text-[36px] font-bold uppercase leading-[1.1] text-[#fff4d8] sm:text-[50px] lg:mt-[calc(11.9*var(--s))] lg:text-[length:calc(50.5*var(--s))] lg:leading-[calc(59*var(--s))]">
+            Seconde peau,
+            <br />
+            premier rôle.
+          </h1>
+          <p className="mt-4 font-ui text-[17px] leading-snug text-[#fff2e6] sm:text-[20px] lg:mt-[calc(19.6*var(--s))] lg:text-[length:calc(22.5*var(--s))] lg:leading-none">
+            Le confort n'a pas à passer inaperçu.
+          </p>
           <Link
             to="/boutique"
-            className="flex items-center gap-2.5 rounded-full bg-raspberry px-6 py-3.5 text-[11px] font-medium uppercase tracking-widest text-white"
+            className="mt-7 inline-flex h-12 items-center rounded-[6px] bg-aubergine px-6 font-ui text-[14px] font-medium uppercase leading-none text-[#fff2ec] transition hover:bg-[#5a2147] lg:mt-[calc(31.4*var(--s))] lg:h-[calc(50.5*var(--s))] lg:rounded-[calc(6*var(--s))] lg:px-[calc(20*var(--s))] lg:text-[length:calc(19.5*var(--s))]"
           >
             Découvrir la collection
-            <ArrowRightIcon size={14} />
           </Link>
         </div>
       </div>

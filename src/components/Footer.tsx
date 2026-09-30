@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { BRAND } from '../brand'
 
 const columns = [
   {
@@ -17,6 +18,8 @@ const columns = [
       { label: 'Notre histoire', to: '/notre-histoire' },
       { label: 'Journal', to: '/journal' },
       { label: 'Boutique', to: '/boutique' },
+      { label: 'Mon compte', to: '/compte' },
+      { label: 'Mes favoris', to: '/favoris' },
     ],
   },
 ]
@@ -75,7 +78,7 @@ export function Footer() {
         </div>
 
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-ivory/12 pt-6 text-xs text-ivory/50 sm:flex-row">
-          <p>© {new Date().getFullYear()} [NOM DE LA MARQUE]. Tous droits réservés.</p>
+          <p>© {new Date().getFullYear()} {BRAND}. Tous droits réservés.</p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             {payments.map((p) => (
               <span key={p} className="rounded border border-ivory/20 px-2.5 py-1 text-[10px] uppercase tracking-wide">
