@@ -1,5 +1,6 @@
 import { cjCatalog } from './cj-catalog.js'
 import type { CjCatalogProduct } from './cj-types.js'
+import { compareSizes } from '../lib/sizes.js'
 
 export type Category = {
   slug: string
@@ -95,7 +96,7 @@ function fromCj(p: CjCatalogProduct): Product {
     name: p.name,
     category: categories.find((c) => c.slug === p.category)?.name ?? p.category,
     price: p.price,
-    sizes: unique(p.variants.map((v) => v.size)),
+    sizes: unique(p.variants.map((v) => v.size)).sort(compareSizes),
     colors: unique(p.variants.map((v) => v.color)),
     variants: p.variants.map(({ vid, color, size, image }) => ({ vid, color, size, image })),
     description: p.description,

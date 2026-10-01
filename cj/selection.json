@@ -260,6 +260,139 @@
       ],
       "mainPhoto": 6,
       "defaultColor": "Carreaux violets"
+    },
+    {
+      "sku": "CJNSNYWX00732",
+      "category": "soutiens-gorge",
+      "name": "Soutien-gorge Push-up Bicolore",
+      "description": "Soutien-gorge push-up à armatures, bonnets en dentelle contrastée et large dos pour un maintien sûr, jusqu'au bonnet F. Tailles au format européen : ajoutez 15 au tour de dos pour la taille française (75B = 90B).",
+      "price": 27.9,
+      "isNew": true,
+      "excludeColors": [
+        "Blue"
+      ],
+      "colorNames": {
+        "Skin": "Nude et noir",
+        "White": "Noir et blanc",
+        "Purple": "Violet et noir"
+      },
+      "skipPhotos": [
+        4,
+        7
+      ],
+      "defaultColor": "Nude et noir"
+    },
+    {
+      "sku": "CJNSNYWX01857",
+      "category": "soutiens-gorge",
+      "name": "Bralette Dentelle Dos Nu",
+      "description": "Bralette sans armatures, bande de dentelle sous la poitrine et dos très échancré en U. Idéale sous les dos nus.",
+      "price": 29.9,
+      "isBestSeller": true,
+      "colorNames": {
+        "Flesh color": "Nude"
+      },
+      "defaultColor": "Noir"
+    },
+    {
+      "sku": "CJQQ2581777",
+      "category": "soutiens-gorge",
+      "name": "Soutien-gorge Triangle Dentelle",
+      "description": "Triangle sans armatures en dentelle blanche festonnée, décolleté plongeant et fines bretelles réglables.",
+      "price": 24.9,
+      "colorNames": {
+        "Unique": "Blanc"
+      },
+      "skipPhotos": [
+        3,
+        4,
+        6,
+        10,
+        11
+      ]
+    },
+    {
+      "sku": "CJYD1613090",
+      "category": "soutiens-gorge",
+      "name": "Soutien-gorge Corbeille Dentelle",
+      "description": "Corbeille à armatures en dentelle fine et respirante, bordée de cils. Un maintien léger au quotidien. Tailles au format européen : ajoutez 15 au tour de dos pour la taille française (75B = 90B).",
+      "price": 39.9,
+      "skipPhotos": [
+        1,
+        2,
+        3,
+        5,
+        7,
+        8
+      ]
+    },
+    {
+      "sku": "CJYD3011595",
+      "category": "bodys",
+      "name": "Body Dentelle à Volants",
+      "description": "Body col licou en dentelle, décolleté plongeant et petite jupe volantée en voile. Dos nu.",
+      "price": 29.9,
+      "isNew": true,
+      "excludeColors": [
+        "Navy Blue",
+        "Green",
+        "Rose Red",
+        "Blue"
+      ],
+      "skipPhotos": [
+        1,
+        2,
+        5,
+        8,
+        11
+      ],
+      "mainPhoto": 12,
+      "defaultColor": "Noir"
+    },
+    {
+      "sku": "CJYD2529944",
+      "category": "bodys",
+      "name": "Body Bustier Lacé",
+      "description": "Body bustier push-up en satin et dentelle, laçage graphique sur le devant et jarretières assorties.",
+      "price": 44.9,
+      "excludeColors": [
+        "Rose Red",
+        "Dark Blue",
+        "Dark Green"
+      ],
+      "skipPhotos": [
+        1,
+        3,
+        6,
+        7
+      ],
+      "mainPhoto": 5,
+      "defaultColor": "Noir"
+    },
+    {
+      "sku": "CJWX1206890",
+      "category": "ensembles",
+      "name": "Parure Bijou Strass",
+      "description": "Parure de corps en chaînes et strass : un haut triangle et un string assorti, à porter comme un bijou. Taille ajustable.",
+      "price": 49.9,
+      "excludeColors": [
+        "Silver Bra",
+        "Silver Panties",
+        "Golden Bra",
+        "Golden Panties"
+      ],
+      "colorNames": {
+        "Silver Suit": "Argenté",
+        "Golden Suit": "Doré"
+      },
+      "skipPhotos": [
+        1,
+        4,
+        6,
+        7
+      ],
+      "mainPhoto": 5,
+      "defaultColor": "Argenté"
     }
   ]
 }

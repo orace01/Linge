@@ -14,6 +14,7 @@ import { mkdir, readdir, rm, writeFile } from 'node:fs/promises'
 import sharp from 'sharp'
 import { categories } from '../src/data/catalog.js'
 import type { CjCatalog, CjCatalogProduct, CjCatalogVariant } from '../src/data/cj-types.js'
+import { compareSizes } from '../src/lib/sizes.js'
 import { loadEnvLocal } from './env.js'
 
 loadEnvLocal()
@@ -65,7 +66,6 @@ const COLORS: Record<string, string> = {
   khaki: 'Kaki', coffee: 'Café', brown: 'Marron', gray: 'Gris', grey: 'Gris', yellow: 'Jaune', orange: 'Orange',
   champagne: 'Champagne', ivory: 'Ivoire', gold: 'Doré', silver: 'Argent', leopard: 'Léopard',
 }
-const SIZE_ORDER = ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', '2XL', 'XXXL', '3XL', '4XL', '5XL', '6XL', 'Unique']
 const SIZE_RE = /^(XXS|XS|S|M|L|XL|XXL|XXXL|[2-6]XL|\d{2,3}[A-H]{0,3}|ONE ?SIZE|FREE ?SIZE)$/i
 
 // longest names first, so "wine red" wins over "red"
@@ -86,7 +86,7 @@ function splitVariantKey(key: string) {
   const parts = key.split(/\s*-\s*/).map((p) => p.trim()).filter(Boolean)
   const sizeIndex = parts.findIndex((p) => SIZE_RE.test(p))
   const rawSize = sizeIndex >= 0 ? parts.splice(sizeIndex, 1)[0] : 'Unique'
-  const size = /one ?size|free ?size/i.test(rawSize) ? 'Unique' : rawSize.toUpperCase()
+  const size = sizeIndex < 0 || /one ?size|free ?size/i.test(rawSize) ? 'Unique' : rawSize.toUpperCase()
   return { color: parts.join(' ') || 'Unique', size }
 }
 
@@ -166,7 +166,7 @@ for (const [i, item] of selection.products.entries()) {
         warnings.push(`${ref} : "${rawColor}" gardé tel quel (plusieurs variantes donnent "${v.color}"), à renommer via colorNames`)
         return { ...v, color: rawColor.replace(/\b\w/g, (c) => c.toUpperCase()) }
       })
-      .sort((a, b) => a.color.localeCompare(b.color) || SIZE_ORDER.indexOf(a.size) - SIZE_ORDER.indexOf(b.size))
+      .sort((a, b) => a.color.localeCompare(b.color) || compareSizes(a.size, b.size))
 
     if (!variants.length) throw new Error('aucune variante')
 

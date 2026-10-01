@@ -11,6 +11,8 @@ import { getVariantStock } from './cj.js'
 import { mockSnapshot } from './mock.js'
 import { readSnapshot, writeSnapshot } from './stock-store.js'
 
+const FAIL_FAST_AFTER = 5
+
 export type SyncReport = {
   source: StockSnapshot['source']
   products: number
@@ -42,6 +44,10 @@ export async function syncStock(log: (message: string) => void = () => {}): Prom
       errors.push({ product, vid, message })
       log(`[${i + 1}/${all.length}] ${label} : ERREUR ${message}`)
       if (previous[vid]) variants[vid] = previous[vid]
+      // the first calls all fail (bad key, blocked access…): stop now instead of failing ~200 times
+      if (i === FAIL_FAST_AFTER - 1 && errors.length === FAIL_FAST_AFTER) {
+        throw new Error(`Les ${FAIL_FAST_AFTER} premiers appels CJ ont échoué (${message}) : synchro arrêtée, stock précédent conservé`)
+      }
     }
   }
 

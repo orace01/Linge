@@ -2,7 +2,10 @@ name: Sync CJ stock
 
 on:
   schedule:
-    - cron: '17 */8 * * *' # every 8 hours (1 CJ call per variant, 1000 calls a day at most)
+    - cron: '17 */12 * * *' # twice a day (1 CJ call per variant, 1000 calls a day at most)
+  push:
+    branches: [main]
+    paths: ['src/data/cj-catalog.ts'] # new or changed products: refresh their stock right away
   workflow_dispatch: {}
 
 concurrency:

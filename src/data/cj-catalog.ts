@@ -2,7 +2,7 @@
 import type { CjCatalog } from './cj-types.js'
 
 export const cjCatalog: CjCatalog = {
-  "generatedAt": "2026-09-30T23:20:25.043Z",
+  "generatedAt": "2026-10-01T08:36:33.279Z",
   "products": [
     {
       "pid": "2602061003141607600",
@@ -1617,7 +1617,7 @@ export const cjCatalog: CjCatalog = {
           "sku": "CJNSSYTZ03935-White",
           "key": "White",
           "color": "Blanc",
-          "size": "UNIQUE",
+          "size": "Unique",
           "cost": 5.22,
           "image": "/products/CJNSSYTZ03935/14da59c157.webp"
         },
@@ -1626,7 +1626,7 @@ export const cjCatalog: CjCatalog = {
           "sku": "CJNSSYTZ03935-Black",
           "key": "Black",
           "color": "Noir",
-          "size": "UNIQUE",
+          "size": "Unique",
           "cost": 5.22,
           "image": "/products/CJNSSYTZ03935/9db188cc07.webp"
         },
@@ -1635,7 +1635,7 @@ export const cjCatalog: CjCatalog = {
           "sku": "CJNSSYTZ03935-Pink",
           "key": "Pink",
           "color": "Rose poudré",
-          "size": "UNIQUE",
+          "size": "Unique",
           "cost": 5.22,
           "image": "/products/CJNSSYTZ03935/ab65a3616f.webp"
         },
@@ -1644,7 +1644,7 @@ export const cjCatalog: CjCatalog = {
           "sku": "CJNSSYTZ03935-Red",
           "key": "Red",
           "color": "Rouge",
-          "size": "UNIQUE",
+          "size": "Unique",
           "cost": 5.22,
           "image": "/products/CJNSSYTZ03935/4a4f796aaf.webp"
         }
@@ -2400,6 +2400,879 @@ export const cjCatalog: CjCatalog = {
           "size": "XXL",
           "cost": 4.86,
           "image": "/products/CJQQ1416474/4fd91a551a.webp"
+        }
+      ]
+    },
+    {
+      "pid": "007DA156-6CAE-4E6B-A6A7-E72EE9CFC40E",
+      "sku": "CJNSNYWX00732",
+      "slug": "soutien-gorge-push-up-bicolore",
+      "name": "Soutien-gorge Push-up Bicolore",
+      "cjName": "Lace Print Color Block Lingerie",
+      "description": "Soutien-gorge push-up à armatures, bonnets en dentelle contrastée et large dos pour un maintien sûr, jusqu'au bonnet F. Tailles au format européen : ajoutez 15 au tour de dos pour la taille française (75B = 90B).",
+      "category": "soutiens-gorge",
+      "price": 27.9,
+      "images": [
+        "/products/CJNSNYWX00732/77b8237554.webp",
+        "/products/CJNSNYWX00732/8d210b56c7.webp",
+        "/products/CJNSNYWX00732/e8ddbf303f.webp",
+        "/products/CJNSNYWX00732/1cc77fb48f.webp",
+        "/products/CJNSNYWX00732/47dde9a763.webp",
+        "/products/CJNSNYWX00732/b52048b8a7.webp"
+      ],
+      "defaultColor": "Nude et noir",
+      "variants": [
+        {
+          "vid": "B005DA14-9444-4E61-AF9E-FB5CE4F75AD7",
+          "sku": "CJNSNYWX00732-White-75D",
+          "key": "White-75D",
+          "color": "Noir et blanc",
+          "size": "75D",
+          "cost": 2.7,
+          "image": "/products/CJNSNYWX00732/b52048b8a7.webp"
+        },
+        {
+          "vid": "B6AA0314-AD72-4848-8668-1848065DA92D",
+          "sku": "CJNSNYWX00732-White-75E",
+          "key": "White-75E",
+          "color": "Noir et blanc",
+          "size": "75E",
+          "cost": 2.7,
+          "image": "/products/CJNSNYWX00732/b52048b8a7.webp"
+        },
+        {
+          "vid": "7631FFD4-277C-4EDD-AD31-C20F423D0478",
+          "sku": "CJNSNYWX00732-White-80D",
+          "key": "White-80D",
+          "color": "Noir et blanc",
+          "size": "80D",
+          "cost": 2.7,
+          "image": "/products/CJNSNYWX00732/b52048b8a7.webp"
+        },
+        {
+          "vid": "A22C1408-517B-4B5D-A7FC-87DF8E19A294",
+          "sku": "CJNSNYWX00732-White-80E",
+          "key": "White-80E",
+          "color": "Noir et blanc",
+          "size": "80E",
+          "cost": 2.7,
+          "image": "/products/CJNSNYWX00732/b52048b8a7.webp"
+        },
+        {
+          "vid": "B927B54E-BAA0-4700-8A77-01ED2505197F",
+          "sku": "CJNSNYWX00732-White-85D",
+          "key": "White-85D",
+          "color": "Noir et blanc",
+          "size": "85D",
+          "cost": 2.7,
+          "image": "/products/CJNSNYWX00732/b52048b8a7.webp"
+        },
+        {
+          "vid": "6930507C-CD4A-4BAB-B047-755AEEF101DE",
+          "sku": "CJNSNYWX00732-White-85E",
+          "key": "White-85E",
+          "color": "Noir et blanc",
+          "size": "85E",
+          "cost": 2.7,
+          "image": "/products/CJNSNYWX00732/b52048b8a7.webp"
+        },
+        {
+          "vid": "A91FA8FB-538A-417F-971B-2787CBE5EBFE",
+          "sku": "CJNSNYWX00732-White-90D",
+          "key": "White-90D",
+          "color": "Noir et blanc",
+          "size": "90D",
+          "cost": 2.7,
+          "image": "/products/CJNSNYWX00732/b52048b8a7.webp"
+        },
+        {
+          "vid": "6A2D7A63-29F7-4744-A63A-1FF0A6A0C81E",
+          "sku": "CJNSNYWX00732-White-90E",
+          "key": "White-90E",
+          "color": "Noir et blanc",
+          "size": "90E",
+          "cost": 2.7,
+          "image": "/products/CJNSNYWX00732/b52048b8a7.webp"
+        },
+        {
+          "vid": "C795C6BE-1DB2-4733-8669-20F384118657",
+          "sku": "CJNSNYWX00732-White-95D",
+          "key": "White-95D",
+          "color": "Noir et blanc",
+          "size": "95D",
+          "cost": 2.7,
+          "image": "/products/CJNSNYWX00732/b52048b8a7.webp"
+        },
+        {
+          "vid": "161BDF67-CF48-42E4-B72C-34833A190BA3",
+          "sku": "CJNSNYWX00732-White-95E",
+          "key": "White-95E",
+          "color": "Noir et blanc",
+          "size": "95E",
+          "cost": 2.7,
+          "image": "/products/CJNSNYWX00732/b52048b8a7.webp"
+        },
+        {
+          "vid": "735FC2A9-18DD-41EF-98B1-0B7504206C3E",
+          "sku": "CJNSNYWX00732-White-95F",
+          "key": "White-95F",
+          "color": "Noir et blanc",
+          "size": "95F",
+          "cost": 2.7,
+          "image": "/products/CJNSNYWX00732/b52048b8a7.webp"
+        },
+        {
+          "vid": "05E0000B-5287-4D06-B21B-C45485184FE7",
+          "sku": "CJNSNYWX00732-Skin-75D",
+          "key": "Skin-75D",
+          "color": "Nude et noir",
+          "size": "75D",
+          "cost": 2.7,
+          "image": "/products/CJNSNYWX00732/47dde9a763.webp"
+        },
+        {
+          "vid": "B37D53B3-AAB3-4818-AA2D-65D8D170A8F0",
+          "sku": "CJNSNYWX00732-Skin-75E",
+          "key": "Skin-75E",
+          "color": "Nude et noir",
+          "size": "75E",
+          "cost": 2.7,
+          "image": "/products/CJNSNYWX00732/47dde9a763.webp"
+        },
+        {
+          "vid": "D6CB6359-9523-4905-805C-220F013C14A9",
+          "sku": "CJNSNYWX00732-Skin-80D",
+          "key": "Skin-80D",
+          "color": "Nude et noir",
+          "size": "80D",
+          "cost": 2.7,
+          "image": "/products/CJNSNYWX00732/47dde9a763.webp"
+        },
+        {
+          "vid": "084EC135-83A1-4533-8312-C88A29F687D3",
+          "sku": "CJNSNYWX00732-Skin-80E",
+          "key": "Skin-80E",
+          "color": "Nude et noir",
+          "size": "80E",
+          "cost": 2.7,
+          "image": "/products/CJNSNYWX00732/47dde9a763.webp"
+        },
+        {
+          "vid": "E1E3BC42-75A9-4547-8CD8-1702FDD8F48D",
+          "sku": "CJNSNYWX00732-Skin-85D",
+          "key": "Skin-85D",
+          "color": "Nude et noir",
+          "size": "85D",
+          "cost": 2.7,
+          "image": "/products/CJNSNYWX00732/47dde9a763.webp"
+        },
+        {
+          "vid": "7CD70EC1-BC6C-46B5-AD87-36509EB4142B",
+          "sku": "CJNSNYWX00732-Skin-85E",
+          "key": "Skin-85E",
+          "color": "Nude et noir",
+          "size": "85E",
+          "cost": 2.7,
+          "image": "/products/CJNSNYWX00732/47dde9a763.webp"
+        },
+        {
+          "vid": "BB64E1CE-EA78-41C2-A862-5B8F223E3D36",
+          "sku": "CJNSNYWX00732-Skin-90D",
+          "key": "Skin-90D",
+          "color": "Nude et noir",
+          "size": "90D",
+          "cost": 2.7,
+          "image": "/products/CJNSNYWX00732/47dde9a763.webp"
+        },
+        {
+          "vid": "4D5657BD-902A-4358-978B-2A13DCFB1A51",
+          "sku": "CJNSNYWX00732-Skin-90E",
+          "key": "Skin-90E",
+          "color": "Nude et noir",
+          "size": "90E",
+          "cost": 2.7,
+          "image": "/products/CJNSNYWX00732/47dde9a763.webp"
+        },
+        {
+          "vid": "F83E7063-E67C-424D-91F9-A43F5F86B1DC",
+          "sku": "CJNSNYWX00732-Skin-95D",
+          "key": "Skin-95D",
+          "color": "Nude et noir",
+          "size": "95D",
+          "cost": 2.7,
+          "image": "/products/CJNSNYWX00732/47dde9a763.webp"
+        },
+        {
+          "vid": "B3CFB04C-D556-4708-849E-EBBA95B016BD",
+          "sku": "CJNSNYWX00732-Skin-95E",
+          "key": "Skin-95E",
+          "color": "Nude et noir",
+          "size": "95E",
+          "cost": 2.7,
+          "image": "/products/CJNSNYWX00732/47dde9a763.webp"
+        },
+        {
+          "vid": "3797F4B9-4FF2-4216-A00A-5DBFBFEB729E",
+          "sku": "CJNSNYWX00732-Skin-95F",
+          "key": "Skin-95F",
+          "color": "Nude et noir",
+          "size": "95F",
+          "cost": 2.7,
+          "image": "/products/CJNSNYWX00732/47dde9a763.webp"
+        },
+        {
+          "vid": "1453896426378629120",
+          "sku": "CJNSNYWX00732-Purple-80E",
+          "key": "Purple-80E",
+          "color": "Violet et noir",
+          "size": "80E",
+          "cost": 2.7,
+          "image": "/products/CJNSNYWX00732/8d210b56c7.webp"
+        }
+      ],
+      "isNew": true
+    },
+    {
+      "pid": "F86310C4-F87A-4727-8053-D227B7B33FFD",
+      "sku": "CJNSNYWX01857",
+      "slug": "bralette-dentelle-dos-nu",
+      "name": "Bralette Dentelle Dos Nu",
+      "cjName": "U-shaped backless lace lingerie",
+      "description": "Bralette sans armatures, bande de dentelle sous la poitrine et dos très échancré en U. Idéale sous les dos nus.",
+      "category": "soutiens-gorge",
+      "price": 29.9,
+      "images": [
+        "/products/CJNSNYWX01857/08ffbda3f6.webp",
+        "/products/CJNSNYWX01857/50122bcde0.webp",
+        "/products/CJNSNYWX01857/8739667c79.webp",
+        "/products/CJNSNYWX01857/4ed5739ebb.webp"
+      ],
+      "defaultColor": "Noir",
+      "variants": [
+        {
+          "vid": "F7A6CEC3-B903-4C67-ABF5-7EF3BB54CCAE",
+          "sku": "CJNSNYWX01857-White-S",
+          "key": "White-S",
+          "color": "Blanc",
+          "size": "S",
+          "cost": 3.62,
+          "image": "/products/CJNSNYWX01857/84f13062e1.webp"
+        },
+        {
+          "vid": "C70FB2D6-497B-481E-B1D9-0F443099D9C4",
+          "sku": "CJNSNYWX01857-White-M",
+          "key": "White-M",
+          "color": "Blanc",
+          "size": "M",
+          "cost": 3.62,
+          "image": "/products/CJNSNYWX01857/84f13062e1.webp"
+        },
+        {
+          "vid": "D325CDBF-3B8D-468A-8549-CC20E49E61E3",
+          "sku": "CJNSNYWX01857-White-L",
+          "key": "White-L",
+          "color": "Blanc",
+          "size": "L",
+          "cost": 3.62,
+          "image": "/products/CJNSNYWX01857/84f13062e1.webp"
+        },
+        {
+          "vid": "5E7BF103-F5C0-48CA-9866-B5B520448041",
+          "sku": "CJNSNYWX01857-White-XL",
+          "key": "White-XL",
+          "color": "Blanc",
+          "size": "XL",
+          "cost": 3.62,
+          "image": "/products/CJNSNYWX01857/84f13062e1.webp"
+        },
+        {
+          "vid": "25205C2A-B558-44D5-8C5B-096B18C702D3",
+          "sku": "CJNSNYWX01857-Black-S",
+          "key": "Black-S",
+          "color": "Noir",
+          "size": "S",
+          "cost": 3.62,
+          "image": "/products/CJNSNYWX01857/46649beae5.webp"
+        },
+        {
+          "vid": "02B24F02-6232-4FDE-B704-0637A00D237E",
+          "sku": "CJNSNYWX01857-Black-M",
+          "key": "Black-M",
+          "color": "Noir",
+          "size": "M",
+          "cost": 3.62,
+          "image": "/products/CJNSNYWX01857/46649beae5.webp"
+        },
+        {
+          "vid": "F7ADB505-9503-4E6E-9ED5-D6E6EF1DFCF0",
+          "sku": "CJNSNYWX01857-Black-L",
+          "key": "Black-L",
+          "color": "Noir",
+          "size": "L",
+          "cost": 3.62,
+          "image": "/products/CJNSNYWX01857/46649beae5.webp"
+        },
+        {
+          "vid": "9036A519-71E9-45D6-A09E-36EDD5153AD1",
+          "sku": "CJNSNYWX01857-Black-XL",
+          "key": "Black-XL",
+          "color": "Noir",
+          "size": "XL",
+          "cost": 3.62,
+          "image": "/products/CJNSNYWX01857/46649beae5.webp"
+        },
+        {
+          "vid": "3499FD1A-3B27-4672-9DA8-5FA0A4497FDA",
+          "sku": "CJNSNYWX01857-Flesh color-S",
+          "key": "Flesh color-S",
+          "color": "Nude",
+          "size": "S",
+          "cost": 3.62,
+          "image": "/products/CJNSNYWX01857/3be9c1b445.webp"
+        },
+        {
+          "vid": "A657D1B6-67CC-4807-B615-C3F12D0FF504",
+          "sku": "CJNSNYWX01857-Flesh color-M",
+          "key": "Flesh color-M",
+          "color": "Nude",
+          "size": "M",
+          "cost": 3.62,
+          "image": "/products/CJNSNYWX01857/3be9c1b445.webp"
+        },
+        {
+          "vid": "D23F8400-2D22-4C70-A83A-0FF3786C3F28",
+          "sku": "CJNSNYWX01857-Flesh color-L",
+          "key": "Flesh color-L",
+          "color": "Nude",
+          "size": "L",
+          "cost": 3.62,
+          "image": "/products/CJNSNYWX01857/3be9c1b445.webp"
+        },
+        {
+          "vid": "58758B3A-5EBD-49EC-AF3B-C804C924A769",
+          "sku": "CJNSNYWX01857-Flesh color-XL",
+          "key": "Flesh color-XL",
+          "color": "Nude",
+          "size": "XL",
+          "cost": 3.62,
+          "image": "/products/CJNSNYWX01857/3be9c1b445.webp"
+        }
+      ],
+      "isBestSeller": true
+    },
+    {
+      "pid": "1985977373998641154",
+      "sku": "CJQQ2581777",
+      "slug": "soutien-gorge-triangle-dentelle",
+      "name": "Soutien-gorge Triangle Dentelle",
+      "cjName": "Women's Sexy Lingerie, White.",
+      "description": "Triangle sans armatures en dentelle blanche festonnée, décolleté plongeant et fines bretelles réglables.",
+      "category": "soutiens-gorge",
+      "price": 24.9,
+      "images": [
+        "/products/CJQQ2581777/4d58145cac.webp",
+        "/products/CJQQ2581777/99ee470834.webp",
+        "/products/CJQQ2581777/741f5e4b38.webp",
+        "/products/CJQQ2581777/cd01b4d491.webp",
+        "/products/CJQQ2581777/7764523993.webp",
+        "/products/CJQQ2581777/40eae74cce.webp",
+        "/products/CJQQ2581777/13a53b9d4e.webp"
+      ],
+      "variants": [
+        {
+          "vid": "1985977374418071553",
+          "sku": "CJQQ258177701AZ",
+          "key": "XS",
+          "color": "Blanc",
+          "size": "XS",
+          "cost": 2.44,
+          "image": "/products/CJQQ2581777/4d58145cac.webp"
+        },
+        {
+          "vid": "1985977374418071554",
+          "sku": "CJQQ258177702BY",
+          "key": "S",
+          "color": "Blanc",
+          "size": "S",
+          "cost": 2.44,
+          "image": "/products/CJQQ2581777/4d58145cac.webp"
+        },
+        {
+          "vid": "1985977374418071555",
+          "sku": "CJQQ258177703CX",
+          "key": "M",
+          "color": "Blanc",
+          "size": "M",
+          "cost": 2.44,
+          "image": "/products/CJQQ2581777/4d58145cac.webp"
+        },
+        {
+          "vid": "1985977374418071556",
+          "sku": "CJQQ258177704DW",
+          "key": "L",
+          "color": "Blanc",
+          "size": "L",
+          "cost": 2.44,
+          "image": "/products/CJQQ2581777/4d58145cac.webp"
+        }
+      ]
+    },
+    {
+      "pid": "1592430780633067520",
+      "sku": "CJYD1613090",
+      "slug": "soutien-gorge-corbeille-dentelle",
+      "name": "Soutien-gorge Corbeille Dentelle",
+      "cjName": "Lace Lingerie Breathable Comfortable Thin Large Size Bra Bra",
+      "description": "Corbeille à armatures en dentelle fine et respirante, bordée de cils. Un maintien léger au quotidien. Tailles au format européen : ajoutez 15 au tour de dos pour la taille française (75B = 90B).",
+      "category": "soutiens-gorge",
+      "price": 39.9,
+      "images": [
+        "/products/CJYD1613090/a24942ee24.webp",
+        "/products/CJYD1613090/9c3d5b1d3f.webp"
+      ],
+      "variants": [
+        {
+          "vid": "1592430780700176384",
+          "sku": "CJYD161309002BY",
+          "key": "Wine Red-70A",
+          "color": "Bordeaux",
+          "size": "70A",
+          "cost": 6.43,
+          "image": "/products/CJYD1613090/a24942ee24.webp"
+        },
+        {
+          "vid": "1592430780704370688",
+          "sku": "CJYD161309003CX",
+          "key": "Wine Red-70B",
+          "color": "Bordeaux",
+          "size": "70B",
+          "cost": 6.43,
+          "image": "/products/CJYD1613090/a24942ee24.webp"
+        },
+        {
+          "vid": "1592430780704370689",
+          "sku": "CJYD161309004DW",
+          "key": "Wine Red-70C",
+          "color": "Bordeaux",
+          "size": "70C",
+          "cost": 6.43,
+          "image": "/products/CJYD1613090/a24942ee24.webp"
+        },
+        {
+          "vid": "1592430780708564992",
+          "sku": "CJYD161309005EV",
+          "key": "Wine Red-75A",
+          "color": "Bordeaux",
+          "size": "75A",
+          "cost": 6.43,
+          "image": "/products/CJYD1613090/a24942ee24.webp"
+        },
+        {
+          "vid": "1592430780708564993",
+          "sku": "CJYD161309006FU",
+          "key": "Wine Red-75B",
+          "color": "Bordeaux",
+          "size": "75B",
+          "cost": 6.43,
+          "image": "/products/CJYD1613090/a24942ee24.webp"
+        },
+        {
+          "vid": "1592430780708564994",
+          "sku": "CJYD161309007GT",
+          "key": "Wine Red-75C",
+          "color": "Bordeaux",
+          "size": "75C",
+          "cost": 6.43,
+          "image": "/products/CJYD1613090/a24942ee24.webp"
+        },
+        {
+          "vid": "1592430780712759296",
+          "sku": "CJYD161309008HS",
+          "key": "Wine Red-80A",
+          "color": "Bordeaux",
+          "size": "80A",
+          "cost": 6.43,
+          "image": "/products/CJYD1613090/a24942ee24.webp"
+        },
+        {
+          "vid": "1592430780712759297",
+          "sku": "CJYD161309009IR",
+          "key": "Wine Red-90C",
+          "color": "Bordeaux",
+          "size": "90C",
+          "cost": 6.43,
+          "image": "/products/CJYD1613090/a24942ee24.webp"
+        }
+      ]
+    },
+    {
+      "pid": "2607270925011604900",
+      "sku": "CJYD3011595",
+      "slug": "body-dentelle-a-volants",
+      "name": "Body Dentelle à Volants",
+      "cjName": "Plus-size Lace Sexy Lingerie Sheer Mesh Jumpsuit For Women",
+      "description": "Body col licou en dentelle, décolleté plongeant et petite jupe volantée en voile. Dos nu.",
+      "category": "bodys",
+      "price": 29.9,
+      "images": [
+        "/products/CJYD3011595/3379025de1.webp",
+        "/products/CJYD3011595/143c86d193.webp",
+        "/products/CJYD3011595/7442ebefa0.webp",
+        "/products/CJYD3011595/1c541a95f6.webp",
+        "/products/CJYD3011595/84a8711e6c.webp",
+        "/products/CJYD3011595/10ac6a9d4e.webp",
+        "/products/CJYD3011595/6f5147ba39.webp",
+        "/products/CJYD3011595/a2a5f782ab.webp"
+      ],
+      "defaultColor": "Noir",
+      "variants": [
+        {
+          "vid": "2607270925011605800",
+          "sku": "CJYD301159501AZ",
+          "key": "Wine Red-S",
+          "color": "Bordeaux",
+          "size": "S",
+          "cost": 1.8,
+          "image": "/products/CJYD3011595/10ac6a9d4e.webp"
+        },
+        {
+          "vid": "2607270925011606400",
+          "sku": "CJYD301159502BY",
+          "key": "Wine Red-M",
+          "color": "Bordeaux",
+          "size": "M",
+          "cost": 1.8,
+          "image": "/products/CJYD3011595/10ac6a9d4e.webp"
+        },
+        {
+          "vid": "2607270925011607700",
+          "sku": "CJYD301159503CX",
+          "key": "Wine Red-L",
+          "color": "Bordeaux",
+          "size": "L",
+          "cost": 1.8,
+          "image": "/products/CJYD3011595/10ac6a9d4e.webp"
+        },
+        {
+          "vid": "2607270925011608300",
+          "sku": "CJYD301159504DW",
+          "key": "Wine Red-XL",
+          "color": "Bordeaux",
+          "size": "XL",
+          "cost": 1.8,
+          "image": "/products/CJYD3011595/10ac6a9d4e.webp"
+        },
+        {
+          "vid": "2607270925021602000",
+          "sku": "CJYD301159509IR",
+          "key": "Black-S",
+          "color": "Noir",
+          "size": "S",
+          "cost": 1.8,
+          "image": "/products/CJYD3011595/3379025de1.webp"
+        },
+        {
+          "vid": "2607270925021602700",
+          "sku": "CJYD301159510JQ",
+          "key": "Black-M",
+          "color": "Noir",
+          "size": "M",
+          "cost": 1.8,
+          "image": "/products/CJYD3011595/3379025de1.webp"
+        },
+        {
+          "vid": "2607270925021603400",
+          "sku": "CJYD301159511KP",
+          "key": "Black-L",
+          "color": "Noir",
+          "size": "L",
+          "cost": 1.8,
+          "image": "/products/CJYD3011595/3379025de1.webp"
+        },
+        {
+          "vid": "2607270925021604000",
+          "sku": "CJYD301159512LO",
+          "key": "Black-XL",
+          "color": "Noir",
+          "size": "XL",
+          "cost": 1.8,
+          "image": "/products/CJYD3011595/3379025de1.webp"
+        },
+        {
+          "vid": "2607270925021607500",
+          "sku": "CJYD301159517QJ",
+          "key": "Pink-S",
+          "color": "Rose",
+          "size": "S",
+          "cost": 1.8,
+          "image": "/products/CJYD3011595/143c86d193.webp"
+        },
+        {
+          "vid": "2607270925021608100",
+          "sku": "CJYD301159518RI",
+          "key": "Pink-M",
+          "color": "Rose",
+          "size": "M",
+          "cost": 1.8,
+          "image": "/products/CJYD3011595/143c86d193.webp"
+        },
+        {
+          "vid": "2607270925021608800",
+          "sku": "CJYD301159519SH",
+          "key": "Pink-L",
+          "color": "Rose",
+          "size": "L",
+          "cost": 1.8,
+          "image": "/products/CJYD3011595/143c86d193.webp"
+        },
+        {
+          "vid": "2607270925021609500",
+          "sku": "CJYD301159520TG",
+          "key": "Pink-XL",
+          "color": "Rose",
+          "size": "XL",
+          "cost": 1.8,
+          "image": "/products/CJYD3011595/143c86d193.webp"
+        },
+        {
+          "vid": "2607270925011609000",
+          "sku": "CJYD301159505EV",
+          "key": "Red-S",
+          "color": "Rouge",
+          "size": "S",
+          "cost": 1.8,
+          "image": "/products/CJYD3011595/1c541a95f6.webp"
+        },
+        {
+          "vid": "2607270925011609700",
+          "sku": "CJYD301159506FU",
+          "key": "Red-M",
+          "color": "Rouge",
+          "size": "M",
+          "cost": 1.8,
+          "image": "/products/CJYD3011595/1c541a95f6.webp"
+        },
+        {
+          "vid": "2607270925021600400",
+          "sku": "CJYD301159507GT",
+          "key": "Red-L",
+          "color": "Rouge",
+          "size": "L",
+          "cost": 1.8,
+          "image": "/products/CJYD3011595/1c541a95f6.webp"
+        },
+        {
+          "vid": "2607270925021601100",
+          "sku": "CJYD301159508HS",
+          "key": "Red-XL",
+          "color": "Rouge",
+          "size": "XL",
+          "cost": 1.8,
+          "image": "/products/CJYD3011595/1c541a95f6.webp"
+        },
+        {
+          "vid": "2607270925031605700",
+          "sku": "CJYD301159529CX",
+          "key": "Purple-S",
+          "color": "Violet",
+          "size": "S",
+          "cost": 1.8,
+          "image": "/products/CJYD3011595/7442ebefa0.webp"
+        },
+        {
+          "vid": "2607270925031606300",
+          "sku": "CJYD301159530DW",
+          "key": "Purple-M",
+          "color": "Violet",
+          "size": "M",
+          "cost": 1.8,
+          "image": "/products/CJYD3011595/7442ebefa0.webp"
+        },
+        {
+          "vid": "2607270925031606900",
+          "sku": "CJYD301159531EV",
+          "key": "Purple-L",
+          "color": "Violet",
+          "size": "L",
+          "cost": 1.8,
+          "image": "/products/CJYD3011595/7442ebefa0.webp"
+        },
+        {
+          "vid": "2607270925031607500",
+          "sku": "CJYD301159532FU",
+          "key": "Purple-XL",
+          "color": "Violet",
+          "size": "XL",
+          "cost": 1.8,
+          "image": "/products/CJYD3011595/7442ebefa0.webp"
+        }
+      ],
+      "isNew": true
+    },
+    {
+      "pid": "2509140712501601200",
+      "sku": "CJYD2529944",
+      "slug": "body-bustier-lace",
+      "name": "Body Bustier Lacé",
+      "cjName": "Women's Pure Color All-matching Strap Push Up Sexy Lingerie One-piece Suit",
+      "description": "Body bustier push-up en satin et dentelle, laçage graphique sur le devant et jarretières assorties.",
+      "category": "bodys",
+      "price": 44.9,
+      "images": [
+        "/products/CJYD2529944/6061d4bfb9.webp",
+        "/products/CJYD2529944/2090d0e47b.webp",
+        "/products/CJYD2529944/3d62020a9d.webp",
+        "/products/CJYD2529944/889302c9ed.webp",
+        "/products/CJYD2529944/8b9309f7f2.webp"
+      ],
+      "defaultColor": "Noir",
+      "variants": [
+        {
+          "vid": "2604211054141607800",
+          "sku": "CJYD252994423WD",
+          "key": "Black-S",
+          "color": "Noir",
+          "size": "S",
+          "cost": 5.31,
+          "image": "/products/CJYD2529944/6061d4bfb9.webp"
+        },
+        {
+          "vid": "2604211054141607300",
+          "sku": "CJYD252994422VE",
+          "key": "Black-M",
+          "color": "Noir",
+          "size": "M",
+          "cost": 5.31,
+          "image": "/products/CJYD2529944/6061d4bfb9.webp"
+        },
+        {
+          "vid": "2604211054141606800",
+          "sku": "CJYD252994421UF",
+          "key": "Black-L",
+          "color": "Noir",
+          "size": "L",
+          "cost": 5.31,
+          "image": "/products/CJYD2529944/6061d4bfb9.webp"
+        },
+        {
+          "vid": "2604211054141608300",
+          "sku": "CJYD252994424XC",
+          "key": "Black-XL",
+          "color": "Noir",
+          "size": "XL",
+          "cost": 5.31,
+          "image": "/products/CJYD2529944/6061d4bfb9.webp"
+        },
+        {
+          "vid": "2509140712501601400",
+          "sku": "CJYD252994401AZ",
+          "key": "Red-S",
+          "color": "Rouge",
+          "size": "S",
+          "cost": 5.62,
+          "image": "/products/CJYD2529944/3d62020a9d.webp"
+        },
+        {
+          "vid": "2509140712501601600",
+          "sku": "CJYD252994402BY",
+          "key": "Red-M",
+          "color": "Rouge",
+          "size": "M",
+          "cost": 5.62,
+          "image": "/products/CJYD2529944/3d62020a9d.webp"
+        },
+        {
+          "vid": "2509140712501601700",
+          "sku": "CJYD252994403CX",
+          "key": "Red-L",
+          "color": "Rouge",
+          "size": "L",
+          "cost": 5.62,
+          "image": "/products/CJYD2529944/3d62020a9d.webp"
+        },
+        {
+          "vid": "2509140712501601900",
+          "sku": "CJYD252994404DW",
+          "key": "Red-XL",
+          "color": "Rouge",
+          "size": "XL",
+          "cost": 5.62,
+          "image": "/products/CJYD2529944/3d62020a9d.webp"
+        },
+        {
+          "vid": "2509140712501603300",
+          "sku": "CJYD252994413MN",
+          "key": "Purple-S",
+          "color": "Violet",
+          "size": "S",
+          "cost": 5.62,
+          "image": "/products/CJYD2529944/8b9309f7f2.webp"
+        },
+        {
+          "vid": "2509140712501603500",
+          "sku": "CJYD252994414NM",
+          "key": "Purple-M",
+          "color": "Violet",
+          "size": "M",
+          "cost": 5.62,
+          "image": "/products/CJYD2529944/8b9309f7f2.webp"
+        },
+        {
+          "vid": "2509140712501603600",
+          "sku": "CJYD252994415OL",
+          "key": "Purple-L",
+          "color": "Violet",
+          "size": "L",
+          "cost": 5.62,
+          "image": "/products/CJYD2529944/8b9309f7f2.webp"
+        },
+        {
+          "vid": "2509140712501603800",
+          "sku": "CJYD252994416PK",
+          "key": "Purple-XL",
+          "color": "Violet",
+          "size": "XL",
+          "cost": 5.62,
+          "image": "/products/CJYD2529944/8b9309f7f2.webp"
+        }
+      ]
+    },
+    {
+      "pid": "1413386018966605824",
+      "sku": "CJWX1206890",
+      "slug": "parure-bijou-strass",
+      "name": "Parure Bijou Strass",
+      "cjName": "Rhinestone Claw Chain Body Chain Set Sexy Bra Panty Set Lingerie Show",
+      "description": "Parure de corps en chaînes et strass : un haut triangle et un string assorti, à porter comme un bijou. Taille ajustable.",
+      "category": "ensembles",
+      "price": 49.9,
+      "images": [
+        "/products/CJWX1206890/9c491a28dc.webp",
+        "/products/CJWX1206890/1f71fa9304.webp",
+        "/products/CJWX1206890/de8187113b.webp",
+        "/products/CJWX1206890/5a93297595.webp",
+        "/products/CJWX1206890/c41c597624.webp",
+        "/products/CJWX1206890/c59e09fba2.webp"
+      ],
+      "defaultColor": "Argenté",
+      "variants": [
+        {
+          "vid": "1413386020342337536",
+          "sku": "CJWX120689003CX",
+          "key": "Silver-Suit",
+          "color": "Argenté",
+          "size": "Unique",
+          "cost": 8.84,
+          "image": "/products/CJWX1206890/9c491a28dc.webp"
+        },
+        {
+          "vid": "1413386020367503360",
+          "sku": "CJWX120689006FU",
+          "key": "Golden-Suit",
+          "color": "Doré",
+          "size": "Unique",
+          "cost": 8.84,
+          "image": "/products/CJWX1206890/de8187113b.webp"
         }
       ]
     }

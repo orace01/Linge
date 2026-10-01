@@ -1,7 +1,7 @@
 # Catalogue CJdropshipping
 
 Le site vend une sélection de produits CJ. Le catalogue (noms, photos, variantes, prix) est généré à partir
-de `cj/selection.json` ; le stock est synchronisé toutes les 8 heures et revérifié en direct au moment de payer.
+de `cj/selection.json` ; le stock est synchronisé deux fois par jour et revérifié en direct au moment de payer.
 
 ## 1. Choisir les produits : `cj/selection.json`
 
@@ -58,11 +58,16 @@ CJ ne donne le stock que **variante par variante** (1 appel par couleur × taill
 npm run cj:sync     # en local : écrit .data/stock.json (ou dans Vercel Blob si BLOB_READ_WRITE_TOKEN est défini)
 ```
 
-En ligne, la synchro tourne dans **GitHub Actions** toutes les 8 heures (`.github/workflows/sync-stock.yml`),
-et chaque « Passer commande » revérifie en direct les variantes du panier.
+En ligne, la synchro tourne dans **GitHub Actions** (`.github/workflows/sync-stock.yml`) : deux fois par jour,
+et automatiquement après chaque changement du catalogue (push de `src/data/cj-catalog.ts`).
+Chaque « Passer commande » revérifie en direct les variantes du panier.
+En cas d'échec, la cause s'affiche dans « Annotations » sur la page de l'exécution (onglet Actions).
 
-Budget CJ (1 000 appels par jour pour un compte gratuit) : 3 synchros × ~230 variantes = ~700, le reste pour les
+Budget CJ (1 000 appels par jour pour un compte gratuit) : 2 synchros × ~310 variantes = ~620, le reste pour les
 vérifications de panier et les imports. Si ta sélection grossit, espace les synchros (ligne `cron` du workflow).
+
+Un produit dont le stock est uniquement dans un entrepôt hors Chine/Europe (par ex. États-Unis) n'est en général
+pas livrable en France : vérifie le calcul d'expédition vers la France sur la fiche CJ avant de l'ajouter.
 
 ## 4. Configuration
 

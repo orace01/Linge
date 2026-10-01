@@ -4,9 +4,9 @@ import { getCategoryBySlug, products } from '../data/catalog'
 import { ProductCard } from '../components/ProductCard'
 import { ChevronDownIcon } from '../components/icons'
 import { useStock } from '../context/StockContext'
+import { compareSizes } from '../lib/sizes'
 
-const SIZE_ORDER = ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', '2XL', '3XL', 'Unique']
-const allSizes = [...new Set(products.flatMap((p) => p.sizes))].sort((a, b) => SIZE_ORDER.indexOf(a) - SIZE_ORDER.indexOf(b))
+const allSizes = [...new Set(products.flatMap((p) => p.sizes))].sort(compareSizes)
 const allColors = [...new Set(products.flatMap((p) => p.colors))].sort((a, b) => a.localeCompare(b, 'fr'))
 const allCuts = [...new Set(products.map((p) => p.cut).filter((c): c is string => Boolean(c)))]
 
