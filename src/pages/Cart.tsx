@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import { colorwayOf, getProductBySlug } from '../data/catalog'
 import { FabricMedia } from '../components/FabricMedia'
 import { formatPrice } from '../lib/format'
+import { FREE_SHIPPING_FROM, shippingFee } from '../lib/shipping'
 
 type CheckedLine = {
   slug: string
@@ -26,6 +27,8 @@ function problemText(line: CheckedLine) {
 
 export function Cart() {
   const { items, removeItem, updateQuantity, totalPrice } = useCart()
+  const navigate = useNavigate()
+  const shipping = shippingFee(totalPrice)
   const cart = JSON.stringify(items)
   const [lastCheck, setCheck] = useState<Check>({ cart, status: 'idle' })
   // a check only applies to the cart it was made for
@@ -40,8 +43,10 @@ export function Cart() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ items: items.map(({ slug, color, size, quantity }) => ({ slug, color, size, quantity })) }),
       })
-      const data = (await res.json()) as { ok?: boolean; lines?: CheckedLine[] }
+      const data = (await res.json()) as { ok?: boolean; lines?: CheckedLine[]; checkout?: string }
       if (!res.ok || !data.lines) throw new Error()
+      // ordering is open (test or live): on to the delivery details
+      if (data.ok && data.checkout && data.checkout !== 'off') return navigate('/commande')
       setCheck({ cart, status: data.ok ? 'ok' : 'issues', lines: data.lines })
     } catch {
       setCheck({ cart, status: 'error' })
@@ -127,11 +132,16 @@ export function Cart() {
             </div>
             <div className="mt-2.5 flex justify-between text-sm text-ink-muted">
               <span>Livraison</span>
-              <span>{totalPrice >= 80 ? 'Offerte' : 'Calculée à l’étape suivante'}</span>
+              <span>{shipping ? formatPrice(shipping) : 'Offerte'}</span>
             </div>
+            {shipping > 0 && (
+              <p className="mt-2 text-xs text-ink-muted">
+                Plus que {formatPrice(FREE_SHIPPING_FROM - totalPrice)} pour la livraison offerte.
+              </p>
+            )}
             <div className="mt-5 flex justify-between border-t border-border pt-5 font-display text-xl text-ink">
               <span>Total</span>
-              <span>{formatPrice(totalPrice)}</span>
+              <span>{formatPrice(totalPrice + shipping)}</span>
             </div>
             <button
               onClick={handleCheckout}

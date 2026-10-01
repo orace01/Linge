@@ -13,6 +13,7 @@ type CartContextValue = {
   addItem: (item: CartItem) => void
   removeItem: (slug: string, color: string, size: string) => void
   updateQuantity: (slug: string, color: string, size: string, quantity: number) => void
+  clearCart: () => void
   totalItems: number
   totalPrice: number
   isMiniCartOpen: boolean
@@ -85,6 +86,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         addItem,
         removeItem,
         updateQuantity,
+        clearCart: () => setItems([]),
         totalItems,
         totalPrice,
         isMiniCartOpen,

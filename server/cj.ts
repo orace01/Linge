@@ -149,3 +149,92 @@ export function productImages(product: CjProductDetail): string[] {
   if (product.bigImage) images = [product.bigImage, ...images]
   return [...new Set(images.filter((u) => typeof u === 'string' && u.startsWith('http')))]
 }
+
+// --- orders -----------------------------------------------------------------
+
+export type CjOrderInput = {
+  orderNumber: string
+  customerName: string
+  phone: string
+  email: string
+  address: string
+  address2: string
+  zip: string
+  city: string
+  countryCode: string
+  country: string
+  logisticName: string
+  fromCountryCode: string
+  products: { vid: string; quantity: number }[]
+  /** true: CJ sandbox order - simulated payment, nothing charged, nothing shipped */
+  sandbox: boolean
+  /** true: pay from the CJ balance right away; false: create the order only */
+  pay: boolean
+  remark?: string
+}
+
+export type CjOrder = {
+  orderId: string
+  orderStatus?: string
+  orderAmount?: number
+  productAmount?: number
+  postageAmount?: number
+  trackNumber?: string
+  trackingUrl?: string
+  logisticName?: string
+}
+
+/**
+ * Creates the order at CJ. EU destinations need an IOSS choice: our own number
+ * (CJ_IOSS_NUMBER) or, by default, CJ's IOSS (CJ then charges the import VAT).
+ */
+export async function createOrder(input: CjOrderInput): Promise<CjOrder> {
+  if (!cjEnabled()) return { orderId: `MOCK-${input.orderNumber}`, orderStatus: 'CREATED' }
+  const ioss = process.env.CJ_IOSS_NUMBER
+  const created = await request<{ orderId?: string } | null>('/shopping/order/createOrderV2', {
+    method: 'POST',
+    body: {
+      orderNumber: input.orderNumber,
+      shippingCustomerName: input.customerName,
+      shippingPhone: input.phone,
+      email: input.email,
+      shippingAddress: input.address,
+      shippingAddress2: input.address2,
+      shippingZip: input.zip,
+      shippingCity: input.city,
+      shippingProvince: input.city, // France has no provinces; CJ requires the field
+      shippingCountryCode: input.countryCode,
+      shippingCountry: input.country,
+      logisticName: input.logisticName,
+      fromCountryCode: input.fromCountryCode,
+      remark: input.remark ?? '',
+      iossType: ioss ? 2 : 3,
+      ...(ioss ? { iossNumber: ioss } : {}),
+      payType: input.pay ? 2 : 3, // always explicit: CJ's default would pay from the balance
+      isSandbox: input.sandbox ? 1 : 0,
+      products: input.products,
+    },
+  })
+  if (!created?.orderId) throw new CjError('CJ n’a pas renvoyé de numéro de commande')
+  // amounts and status are only in the order detail
+  const detail = await getOrder(created.orderId).catch(() => null)
+  return { ...detail, orderId: created.orderId }
+}
+
+export async function getOrder(orderId: string): Promise<CjOrder> {
+  if (!cjEnabled()) return { orderId, orderStatus: 'CREATED' }
+  const data = await request<Record<string, unknown> | null>('/shopping/order/getOrderDetail', { query: { orderId } })
+  if (!data) throw new CjError(`Commande CJ introuvable : ${orderId}`)
+  const text = (value: unknown) => (typeof value === 'string' && value ? value : undefined)
+  const amount = (value: unknown) => (value === null || value === undefined || value === '' ? undefined : Number(value))
+  return {
+    orderId,
+    orderStatus: text(data.orderStatus),
+    orderAmount: amount(data.orderAmount),
+    productAmount: amount(data.productAmount),
+    postageAmount: amount(data.postageAmount),
+    trackNumber: text(data.trackNumber),
+    trackingUrl: text(data.trackingUrl),
+    logisticName: text(data.logisticName),
+  }
+}

@@ -1,7 +1,23 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "rewrites": [{ "source": "/((?!api/).*)", "destination": "/index.html" }],
+  "rewrites": [
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
+    }
+  ],
   "functions": {
-    "api/checkout/verify.ts": { "maxDuration": 60 }
+    "api/checkout/verify.ts": {
+      "maxDuration": 60
+    },
+    "api/orders.ts": {
+      "maxDuration": 60
+    },
+    "api/payments/webhook.ts": {
+      "maxDuration": 60
+    },
+    "api/admin/orders.ts": {
+      "maxDuration": 60
+    }
   }
 }

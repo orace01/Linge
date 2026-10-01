@@ -35,7 +35,3 @@ export function stockLevel(stock: VariantStock | undefined): StockLevel | null {
   if (qty <= 0) return 'out'
   return qty <= LOW_STOCK ? 'low' : 'in'
 }
-
-export function deliveryEstimate(stock: VariantStock | undefined): string {
-  return stock?.eu ? '3 à 8 jours ouvrés' : '10 à 20 jours ouvrés'
-}

@@ -10,7 +10,7 @@ import { defineConfig, loadEnv, type Plugin, type ViteDevServer } from 'vite'
  */
 function vercelFunctionsInDev(): Plugin {
   const handle = async (server: ViteDevServer, req: IncomingMessage, res: ServerResponse) => {
-    const url = new URL(req.url ?? '/', 'http://localhost')
+    const url = new URL(req.url ?? '/', `http://${req.headers.host ?? 'localhost'}`)
     const file = `api${url.pathname.replace(/^\/api/, '').replace(/\/$/, '')}.ts`
     if (!existsSync(file)) {
       res.statusCode = 404

@@ -11,11 +11,11 @@ import type { StockSnapshot } from '../src/lib/stock.js'
 const BLOB_PATH = 'lucea/stock.json'
 const LOCAL_FILE = '.data/stock.json'
 
-const useBlob = () => Boolean(process.env.BLOB_READ_WRITE_TOKEN || process.env.BLOB_STORE_ID)
+const blobEnabled = () => Boolean(process.env.BLOB_READ_WRITE_TOKEN || process.env.BLOB_STORE_ID)
 
 export async function readSnapshot(): Promise<StockSnapshot | null> {
   try {
-    if (useBlob()) {
+    if (blobEnabled()) {
       const result = await get(BLOB_PATH, { access: 'public', useCache: false })
       if (!result?.stream) return null
       return JSON.parse(await new Response(result.stream).text()) as StockSnapshot
@@ -29,7 +29,7 @@ export async function readSnapshot(): Promise<StockSnapshot | null> {
 
 export async function writeSnapshot(snapshot: StockSnapshot): Promise<void> {
   const body = JSON.stringify(snapshot)
-  if (useBlob()) {
+  if (blobEnabled()) {
     await put(BLOB_PATH, body, {
       access: 'public',
       addRandomSuffix: false,

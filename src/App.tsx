@@ -3,6 +3,8 @@ import { useEffect } from 'react'
 import { CartProvider } from './context/CartContext'
 import { FavoritesProvider } from './context/FavoritesContext'
 import { StockProvider } from './context/StockContext'
+import { formatPrice } from './lib/format'
+import { DELIVERY_ESTIMATE, FREE_SHIPPING_FROM, SHIPPING_FEE } from './lib/shipping'
 import { Header } from './components/Header'
 import { Footer } from './components/Footer'
 import { MiniCartDrawer } from './components/MiniCartDrawer'
@@ -10,6 +12,10 @@ import { Home } from './pages/Home'
 import { Collection } from './pages/Collection'
 import { Product } from './pages/Product'
 import { Cart } from './pages/Cart'
+import { Checkout } from './pages/Checkout'
+import { OrderStatus } from './pages/OrderStatus'
+import { TestPayment } from './pages/TestPayment'
+import { AdminOrders } from './pages/AdminOrders'
 import { Favorites } from './pages/Favorites'
 import { InfoPage } from './pages/InfoPage'
 import { GuideDesTailles } from './pages/GuideDesTailles'
@@ -38,6 +44,10 @@ function App() {
             <Route path="/collection/:slug" element={<Collection />} />
             <Route path="/produit/:slug" element={<Product />} />
             <Route path="/panier" element={<Cart />} />
+            <Route path="/commande" element={<Checkout />} />
+            <Route path="/commande/:id" element={<OrderStatus />} />
+            <Route path="/paiement-test" element={<TestPayment />} />
+            <Route path="/admin/commandes" element={<AdminOrders />} />
             <Route path="/favoris" element={<Favorites />} />
             <Route path="/guide-des-tailles" element={<GuideDesTailles />} />
             <Route path="/faq" element={<FAQ />} />
@@ -88,7 +98,7 @@ function App() {
                 <InfoPage
                   eyebrow="Service client"
                   title="Livraison et retours"
-                  description="Livraison offerte dès [montant] €. Retours gratuits sous 30 jours, dans leur état d'origine."
+                  description={`Livraison suivie, en ${DELIVERY_ESTIMATE} : ${formatPrice(SHIPPING_FEE)}, offerte dès ${FREE_SHIPPING_FROM} € d'achat. Retours sous 30 jours, dans leur état d'origine.`}
                   withFrame={false}
                 />
               }

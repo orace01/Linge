@@ -85,3 +85,36 @@ pas livrable en France : vérifie le calcul d'expédition vers la France sur la 
 - Première synchro : onglet Actions → « Sync CJ stock » → Run workflow. Vérifie ensuite `https://<ton-site>/api/stock`.
 
 Remarque : GitHub met en pause les tâches programmées d'un repo sans activité pendant 60 jours ; un commit les relance.
+
+## 5. Commandes
+
+Parcours : panier → `/commande` (coordonnées et adresse) → paiement → `/commande/<id>` (suivi).
+Quand un paiement est confirmé, le site crée la commande chez CJ (mode « CJPacket Fast Ordinary », réglé dans
+`src/lib/shipping.ts`) ; CJ prépare et expédie, puis le numéro de suivi apparaît sur la page de suivi.
+
+| `ORDER_MODE` | Effet |
+| --- | --- |
+| absent ou `off` | Le panier vérifie le stock, mais on ne peut ni commander ni payer. **C'est l'état du site en ligne.** |
+| `test` | Parcours complet avec un paiement simulé (`/paiement-test`). Rien n'est débité ni expédié. |
+| `live` | Vrais paiements (il faut un agrégateur) et vraies commandes CJ, payées depuis le solde CJ. |
+
+- **Frais de port côté cliente** : 4,90 €, offerts dès 60 € (`SHIPPING_FEE`, `FREE_SHIPPING_FROM` dans `src/lib/shipping.ts`).
+- **Enregistrement** : chaque commande est un fichier chiffré (clé `ORDERS_SECRET`) dans le Blob Vercel ;
+  en local, dans `.data/orders/`.
+- **Administration** : `/admin/commandes`, protégée par `ADMIN_SECRET`. On y voit les commandes, leur état chez CJ,
+  et on peut renvoyer à CJ une commande que CJ avait refusée (solde insuffisant, article retiré…).
+- **TVA à l'import (IOSS)** : CJ refuse toute commande vers la France sans IOSS. Par défaut le site utilise
+  l'IOSS de CJ (CJ facture alors la TVA sur le prix d'achat) ; avec ton propre numéro, renseigne `CJ_IOSS_NUMBER`.
+- **Solde CJ** : en mode `live`, CJ débite ton solde à la création de la commande. S'il est insuffisant, la commande
+  apparaît « À traiter » dans l'administration.
+- **E-mails** (facultatif) : confirmation à la cliente et alerte pour toi, via Resend (`RESEND_API_KEY`,
+  `ORDER_EMAIL_FROM`, `ORDER_NOTIFY_EMAIL`).
+- **Tester avec CJ** : en mode `test`, `CJ_TEST_ORDERS=1` crée en plus une commande *sandbox* chez CJ
+  (aucun débit, aucun envoi), à supprimer ensuite dans CJ.
+
+### Brancher l'agrégateur de paiement
+
+Un seul fichier à écrire, `server/payments/<nom>.ts`, qui implémente `PaymentProvider` (`server/payments/index.ts`) :
+`createPayment` démarre le paiement et renvoie l'adresse de la page de paiement ; `parseWebhook` lit la notification
+de l'agrégateur (en vérifiant sa signature). Renseigner ensuite l'adresse `https://<site>/api/payments/webhook`
+chez l'agrégateur, puis passer `ORDER_MODE` à `live`.

@@ -7,7 +7,8 @@ import { useCart } from '../context/CartContext'
 import { useFavorites } from '../context/FavoritesContext'
 import { useStock } from '../context/StockContext'
 import { HeartIcon } from '../components/icons'
-import { availableQty, deliveryEstimate, type StockLevel } from '../lib/stock'
+import { DELIVERY_ESTIMATE, FREE_SHIPPING_FROM, SHIPPING_FEE } from '../lib/shipping'
+import { availableQty, type StockLevel } from '../lib/stock'
 import { formatPrice } from '../lib/format'
 
 type LevelOf = (vid: string | undefined) => StockLevel | null
@@ -224,9 +225,9 @@ function ProductPage({ slug }: { slug: string | undefined }) {
             }`}
           >
             {currentLevel === 'out' && '○ Épuisé dans cette taille'}
-            {currentLevel === 'low' && `● Plus que ${availableQty(currentStock)} en stock · livraison estimée ${deliveryEstimate(currentStock)}`}
-            {currentLevel === 'in' && `● En stock · livraison estimée ${deliveryEstimate(currentStock)}`}
-            {currentLevel === null && `Livraison estimée ${deliveryEstimate(currentStock)}`}
+            {currentLevel === 'low' && `● Plus que ${availableQty(currentStock)} en stock · livraison en ${DELIVERY_ESTIMATE}`}
+            {currentLevel === 'in' && `● En stock · livraison en ${DELIVERY_ESTIMATE}`}
+            {currentLevel === null && `Livraison en ${DELIVERY_ESTIMATE}`}
           </p>
 
           <button
@@ -252,8 +253,8 @@ function ProductPage({ slug }: { slug: string | undefined }) {
                 Livraison et retours
               </summary>
               <p className="mt-3 text-sm font-light leading-relaxed text-ink-muted">
-                Livraison suivie ; le délai estimé est indiqué au-dessus du bouton d'ajout au panier, selon l'entrepôt
-                d'expédition de la pièce. Retours sous 30 jours.
+                Livraison suivie, en {DELIVERY_ESTIMATE} : {formatPrice(SHIPPING_FEE)}, offerte dès {FREE_SHIPPING_FROM}&nbsp;€
+                d'achat. Retours sous 30 jours.
               </p>
             </details>
           </div>
